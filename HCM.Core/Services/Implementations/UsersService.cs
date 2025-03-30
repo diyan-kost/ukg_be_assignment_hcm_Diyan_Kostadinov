@@ -1,4 +1,5 @@
-﻿using HCM.Core.Helpers;
+﻿using HCM.Core.Exceptions;
+using HCM.Core.Helpers;
 using HCM.Core.Models.User;
 using HCM.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication;
@@ -23,12 +24,12 @@ namespace HCM.Core.Services.Implementations
             var user = await _usersRepository.GetByUsernameAsync(loginUserModel.Username);
 
             if (user is null)
-                throw new Exception("Username or password is incorrect"); // Not found exception
+                throw new EntityNotFoundException("Username or password is incorrect"); // Not found exception
 
             var inputPasswordHash = LoginHelper.ComputeSHA256Hash(loginUserModel.Password);
 
             if (inputPasswordHash != user.Password_Hash)
-                throw new Exception("Username or password is incorrect"); // Bad request exception
+                throw new InvalidInputDataException("Username or password is incorrect"); // Bad request exception
 
             var userClaims = LoginHelper.GenerateClaims(user.Id, loginUserModel.Username, user.Role.Name, user.EmployeeId);
 

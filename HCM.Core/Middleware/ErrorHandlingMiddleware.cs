@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using HCM.Core.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -24,12 +25,18 @@ namespace HCM.Core.Middleware
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred.");
-                //httpContext.Items.Add("ErrorMessage", "An unexpected error occurred. Please try again later.");
-                //httpContext.Response.HttpContext.Items.Add("ErrorMessage", "An unexpected error occurred. Please try again later.");
+
+                string errorMessage = string.Empty;
+
+                if (ex is EntityNotFoundException ||
+                    ex is InvalidInputDataException)
+                    errorMessage = ex.Message;
+                else
+                    errorMessage = "Oops, something went wrong! Please, try again or contact us!";
+
+
                 httpContext.Session.SetString("ErrorMessage", ex.Message);
                 httpContext.Response.Redirect("Index");
-                //httpContext.Request.Path;
-                //httpContext.Response.Redirect("/Home/Error");
             }
         }
     }

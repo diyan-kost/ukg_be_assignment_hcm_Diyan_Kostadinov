@@ -1,4 +1,5 @@
-﻿using HCM.Core.Mappers;
+﻿using HCM.Core.Exceptions;
+using HCM.Core.Mappers;
 using HCM.Core.Models.Employee;
 using HCM.Infrastructure.Repositories;
 
@@ -20,7 +21,7 @@ namespace HCM.Core.Services.Implementations
             var employee = await _employeesRepository.GetByIdAsync(id);
 
             if (employee == null)
-                throw new Exception("Employee not found");
+                throw new EntityNotFoundException("Employee not found");
 
             var salaries = await _salariesRepository.GetSalariesByEmployeeIdAsync(employee.Id);
 
@@ -54,7 +55,7 @@ namespace HCM.Core.Services.Implementations
             var employee = await _employeesRepository.GetByIdAsync(model.Id, false);
 
             if (employee == null)
-                throw new Exception("Employee not found");
+                throw new EntityNotFoundException("Employee not found");
 
             employee.FirstName = model.FirstName;
             employee.MiddleName = model.MiddleName;
