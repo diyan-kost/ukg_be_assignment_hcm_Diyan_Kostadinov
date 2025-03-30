@@ -1,13 +1,12 @@
+using HCM.Core.Exceptions;
 using HCM.Core.Helpers;
 using HCM.Core.Models.Employee;
 using HCM.Core.Models.Salary;
 using HCM.Core.Services;
-using HCM.Infrastructure.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
-using System.Security.Principal;
 
 namespace HCM.Web.Pages
 {
@@ -44,7 +43,9 @@ namespace HCM.Web.Pages
             if (emplId != id && role != "HR Admin")
             {
                 if (role == "Employee")
-                    throw new Exception("Permission denied");
+                {
+                    throw new PermissionDeniedException("Permission denied");
+                }
 
                 checkManagerId = true;
             }
@@ -76,7 +77,7 @@ namespace HCM.Web.Pages
 
             if (checkManagerId && loggedEmployeeId != employeeDetails.ManagerId)
             {
-                throw new Exception("Permission denied");
+                throw new PermissionDeniedException("Permission denied");
             }
 
             EmployeeDetails = employeeDetails;

@@ -4,7 +4,6 @@ using HCM.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace HCM.Web.Pages
 {

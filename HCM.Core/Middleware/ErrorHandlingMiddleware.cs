@@ -28,15 +28,14 @@ namespace HCM.Core.Middleware
 
                 string errorMessage = string.Empty;
 
-                if (ex is EntityNotFoundException ||
-                    ex is InvalidInputDataException)
+                if (ex is BaseCustomException)
                     errorMessage = ex.Message;
                 else
                     errorMessage = "Oops, something went wrong! Please, try again or contact us!";
 
 
                 httpContext.Session.SetString("ErrorMessage", ex.Message);
-                httpContext.Response.Redirect("Index");
+                httpContext.Response.Redirect("/Index");
             }
         }
     }

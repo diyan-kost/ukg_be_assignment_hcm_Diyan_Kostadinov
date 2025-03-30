@@ -1,6 +1,6 @@
 ﻿namespace HCM.Core.Exceptions
 {
-    public class EntityNotFoundException : Exception
+    public class EntityNotFoundException : BaseCustomException
     {
         public EntityNotFoundException(string message) : base(message)
         {
