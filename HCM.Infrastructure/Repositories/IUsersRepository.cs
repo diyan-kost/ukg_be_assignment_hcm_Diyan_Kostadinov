@@ -9,5 +9,11 @@ namespace HCM.Infrastructure.Repositories
         Task<User?> GetByIdAsync(int id);
 
         Task<User?> GetByEmployeeIdAsync(int employeeId);
+
+        Task<User> CreateUserAsync(User user);
+
+        Task DeleteAsync(User user);
+
+        Task SaveTrackingChangesAsync();
     }
 }

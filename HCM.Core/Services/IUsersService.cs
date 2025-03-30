@@ -9,5 +9,11 @@ namespace HCM.Core.Services
         Task LogoutAsync();
 
         Task<string?> GetUsernameByEmployeeIdAsync(int employeeId);
+
+        Task CreateUserAsync(CreateUser model);
+
+        Task UpdateUserAsync(UpdateUser model);
+
+        Task DeleteUserAsync(DeleteUser model);
     }
 }

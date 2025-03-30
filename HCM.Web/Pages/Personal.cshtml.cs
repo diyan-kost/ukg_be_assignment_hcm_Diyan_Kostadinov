@@ -2,6 +2,7 @@ using HCM.Core.Exceptions;
 using HCM.Core.Helpers;
 using HCM.Core.Models.Employee;
 using HCM.Core.Models.Salary;
+using HCM.Core.Models.User;
 using HCM.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,15 @@ namespace HCM.Web.Pages
 
         [BindProperty]
         public AddSalaryModel AddSalaryModel { get; set; }
+
+        [BindProperty]
+        public UpdateUser UpdateUser { get; set; }
+
+        [BindProperty]
+        public DeleteUser DeleteUser { get; set; }
+
+        [BindProperty]
+        public CreateUser CreateUser { get; set; }
 
         public async Task OnGet(int id)
         {
@@ -67,6 +77,27 @@ namespace HCM.Web.Pages
             await LoadEmployeeDetails(AddSalaryModel.EmployeeId);
         }
 
+        public async Task OnPostUpdateUser()
+        {
+            await _usersService.UpdateUserAsync(UpdateUser);
+
+            await LoadEmployeeDetails(UpdateUser.EmployeeId);
+        }
+
+        public async Task OnPostDeleteUser()
+        {
+            await _usersService.DeleteUserAsync(DeleteUser);
+
+            await LoadEmployeeDetails(DeleteUser.EmployeeId);
+        }
+
+        public async Task OnPostCreateUser()
+        {
+            await _usersService.CreateUserAsync(CreateUser);
+
+            await LoadEmployeeDetails(CreateUser.EmployeeId);
+        }
+
         private async Task LoadEmployeeDetails(int id, bool checkManagerId = false)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
@@ -85,7 +116,7 @@ namespace HCM.Web.Pages
             if (loggedEmployeeId != id)
             {
                 var username = await _usersService.GetUsernameByEmployeeIdAsync(id);
-                EmployeeDetails.Username = username ?? "N/A";
+                EmployeeDetails.Username = username /*?? "N/A"*/;
             }
         }
     }

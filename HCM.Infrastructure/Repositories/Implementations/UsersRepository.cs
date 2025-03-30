@@ -39,5 +39,26 @@ namespace HCM.Infrastructure.Repositories.Implementations
 
             return user;
         }
+
+        public async Task<User> CreateUserAsync(User user)
+        {
+            await _dbContext.Users.AddAsync(user);
+
+            await _dbContext.SaveChangesAsync();
+
+            return user;
+        }
+
+        public async Task DeleteAsync(User user)
+        {
+            _dbContext.Remove(user);
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task SaveTrackingChangesAsync()
+        {
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }
