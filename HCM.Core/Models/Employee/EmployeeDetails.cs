@@ -1,4 +1,6 @@
-﻿namespace HCM.Core.Models.Employee
+﻿using HCM.Core.Models.Salary;
+
+namespace HCM.Core.Models.Employee
 {
     public class EmployeeDetails
     {
@@ -24,6 +26,8 @@
 
         public string? ManagerName { get; set; }
 
-        public decimal Salary { get; set; }
+        public string Username { get; set; }
+
+        public List<SalaryDetails> Salaries { get; set; }
     }
 }

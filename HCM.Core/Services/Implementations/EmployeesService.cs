@@ -1,4 +1,5 @@
 ﻿using HCM.Core.Models.Employee;
+using HCM.Core.Models.Salary;
 using HCM.Infrastructure.Repositories;
 using System.Text;
 
@@ -7,10 +8,12 @@ namespace HCM.Core.Services.Implementations
     public class EmployeesService : IEmployeesService
     {
         private readonly IEmployeesRepository _employeesRepository;
+        private readonly ISalariesRepository _salariesRepository; 
 
-        public EmployeesService(IEmployeesRepository employeesRepository)
+        public EmployeesService(IEmployeesRepository employeesRepository, ISalariesRepository salariesRepository)
         {
             _employeesRepository = employeesRepository;
+            _salariesRepository = salariesRepository;
         }
 
         public async Task<EmployeeDetails> GetEmployeeDetailsById(int id)
@@ -36,6 +39,8 @@ namespace HCM.Core.Services.Implementations
                 managerName = fullName.ToString();
             }
 
+            var salaries = await _salariesRepository.GetSalariesByEmployeeIdAsync(employee.Id);
+
             var employeeDetails = new EmployeeDetails()
             {
                 FirstName = employee.FirstName,
@@ -48,8 +53,10 @@ namespace HCM.Core.Services.Implementations
                 DateOfBirth = employee.DateOfBirth,
                 Gender = employee.Gender,
                 HiredAt = employee.HiredAt,
-                ManagerName = managerName
-
+                ManagerName = managerName,
+                Salaries = salaries
+                .Select(s => new SalaryDetails { Amount = s.Amount, EffectiveDate = s.EffectiveDate, Note = s.Note })
+                .ToList()
             };
 
             return employeeDetails;

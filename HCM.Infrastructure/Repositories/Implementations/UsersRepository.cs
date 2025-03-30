@@ -12,6 +12,14 @@ namespace HCM.Infrastructure.Repositories.Implementations
             _dbContext = dbContext;
         }
 
+        public async Task<User?> GetByIdAsync(int id)
+        {
+            var user = await _dbContext.Users
+                .FirstOrDefaultAsync(u => u.Id == id);
+
+            return user;
+        }
+
         public async Task<User?> GetByUsernameAsync(string username)
         {
             var user = await _dbContext.Users
