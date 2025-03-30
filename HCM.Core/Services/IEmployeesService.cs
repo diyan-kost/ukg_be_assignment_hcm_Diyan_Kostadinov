@@ -5,5 +5,9 @@ namespace HCM.Core.Services
     public interface IEmployeesService
     {
         Task<EmployeeDetails> GetEmployeeDetailsById(int id);
+
+        Task<IEnumerable<EmployeeBasicInfo>> GetEmployeesByManagerId(int managerId);
+
+        Task<IEnumerable<EmployeeBasicInfo>> GetAllEmployees();
     }
 }

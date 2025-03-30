@@ -1,0 +1,43 @@
+﻿@page
+@model HCM.Web.Pages.EmployeesModel
+@{
+    var employees = Model.Employees;
+}
+
+@if (Model != null && employees.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Manager</th>
+                <th scope="col">Hired Date</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < employees.Count; i++)
+            {
+                <tr>
+                    <th scope="row">@(i + 1)</th>
+                    <td>@employees[i].FullName</td>
+                    <td>@employees[i].Email</td>
+                    <td>@employees[i].PhoneNumber</td>
+                    <td>@employees[i].Manager</td>
+                    <td>@employees[i].HiredAt</td>
+                    <td>
+                        <a role="button" class="btn btn-light"
+                                asp-page="/Personal" asp-route-id="@employees[i].Id">
+                            View
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+}

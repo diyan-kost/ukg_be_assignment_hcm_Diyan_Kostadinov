@@ -19,7 +19,7 @@ namespace HCM.Web.Controllers
         //[HttpPost]
         public async Task<IActionResult> Login(LoginUserModel loginUserModel)
         {
-            await _usersService.LoginAsync(loginUserModel);
+            //await _usersService.LoginAsync(loginUserModel);
 
             return View("Index");
         }

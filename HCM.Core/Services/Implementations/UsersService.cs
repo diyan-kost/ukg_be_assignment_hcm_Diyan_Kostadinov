@@ -18,7 +18,7 @@ namespace HCM.Core.Services.Implementations
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task LoginAsync(LoginUserModel loginUserModel)
+        public async Task<int> LoginAsync(LoginUserModel loginUserModel)
         {
             var user = await _usersRepository.GetByUsernameAsync(loginUserModel.Username);
 
@@ -35,11 +35,20 @@ namespace HCM.Core.Services.Implementations
             var context = _httpContextAccessor.HttpContext;
 
             await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userClaims);
+
+            return user.EmployeeId;
         }
 
         public async Task LogoutAsync()
         {
             await _httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        }
+
+        public async Task<string?> GetUsernameByEmployeeIdAsync(int employeeId)
+        {
+            var username = await _usersRepository.GetByEmployeeIdAsync(employeeId);
+
+            return username?.Username;
         }
     }
 }

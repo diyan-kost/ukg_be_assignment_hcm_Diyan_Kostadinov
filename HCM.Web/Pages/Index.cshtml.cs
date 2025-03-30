@@ -32,9 +32,9 @@ namespace HCM.Web.Pages
 
         public async Task<IActionResult> OnPostLoginAsync() 
         {
-            await _usersService.LoginAsync(LoginUserModel);
+            var employeeId = await _usersService.LoginAsync(LoginUserModel);
 
-            return Redirect("Personal");
+            return RedirectToPage("Personal", new { id = employeeId });
         }
 
         public async Task<IActionResult> OnPostLogoutAsync()

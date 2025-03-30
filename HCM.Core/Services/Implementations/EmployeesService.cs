@@ -1,6 +1,7 @@
 ﻿using HCM.Core.Models.Employee;
 using HCM.Core.Models.Salary;
 using HCM.Infrastructure.Repositories;
+using Microsoft.CodeAnalysis.Operations;
 using System.Text;
 
 namespace HCM.Core.Services.Implementations
@@ -24,17 +25,15 @@ namespace HCM.Core.Services.Implementations
                 throw new Exception("Employee not found");
 
             var managerName = "None";
-            if (employee.ManagerId != null)
+            if (employee.Manager != null)
             {
-                var manager = await _employeesRepository.GetByIdAsync(employee.ManagerId.Value);
+                var fullName = new StringBuilder(employee.Manager.FirstName);
 
-                var fullName = new StringBuilder(manager.FirstName);
+                if (!string.IsNullOrEmpty(employee.Manager.MiddleName))
+                    fullName.Append($" {employee.Manager.MiddleName}");
 
-                if (!string.IsNullOrEmpty(manager.MiddleName))
-                    fullName.Append($" {manager.MiddleName}");
-
-                if (!string.IsNullOrEmpty(manager.LastName))
-                    fullName.Append($" {manager.LastName}");
+                if (!string.IsNullOrEmpty(employee.Manager.LastName))
+                    fullName.Append($" {employee.Manager.LastName}");
 
                 managerName = fullName.ToString();
             }
@@ -60,6 +59,39 @@ namespace HCM.Core.Services.Implementations
             };
 
             return employeeDetails;
+        }
+
+        public async Task<IEnumerable<EmployeeBasicInfo>> GetEmployeesByManagerId(int managerId)
+        {
+            var employees = await _employeesRepository.GetByManagerIdAsync(managerId);
+
+            var employeeBasicInfoList = employees.Select(e => new EmployeeBasicInfo()
+            {
+                Id = e.Id,
+                FullName = $"{e.FirstName} {e.MiddleName} {e.LastName}",
+                Email = e.Email,
+                PhoneNumber = e.PhoneNumber,
+                HiredAt = e.HiredAt,
+            });
+
+            return employeeBasicInfoList;
+        }
+
+        public async Task<IEnumerable<EmployeeBasicInfo>> GetAllEmployees()
+        {
+            var employees = await _employeesRepository.GetAllAsync();
+
+            var employeeBasicInfoList = employees.Select(e => new EmployeeBasicInfo()
+            {
+                Id = e.Id,
+                FullName = $"{e.FirstName} {e.MiddleName} {e.LastName}",
+                Email = e.Email,
+                PhoneNumber = e.PhoneNumber,
+                HiredAt = e.HiredAt,
+                Manager = e.Manager != null ? $"{e.Manager.FirstName} {e.MiddleName} {e.LastName}" : null
+            });
+
+            return employeeBasicInfoList;
         }
     }
 }

@@ -12,23 +12,35 @@ namespace HCM.Web.Pages
     public class PersonalModel : PageModel
     {
         private readonly IEmployeesService _employeesService;
-        public PersonalModel(IEmployeesService employeesService)
+        private readonly IUsersService _usersService;
+
+        public PersonalModel(IEmployeesService employeesService, IUsersService usersService)
         {
             _employeesService = employeesService;
+            _usersService = usersService;
         }
 
         [BindProperty]
         public EmployeeDetails EmployeeDetails { get; set; }
 
-        public async Task OnGet()
+        public async Task OnGet(int id)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var id = Convert.ToInt32(identity!.FindFirst(CustomClaims.EmployeeId)!.Value);
+            var emplId = Convert.ToInt32(identity!.FindFirst(CustomClaims.EmployeeId)!.Value);
+            var role = identity.FindFirst(ClaimTypes.Role).Value;
+
+            if (role == "Employee" && emplId != id)
+                throw new Exception("Permission denied");
 
             var employeeDetails = await _employeesService.GetEmployeeDetailsById(id);
 
             EmployeeDetails = employeeDetails;
             EmployeeDetails.Username = identity.FindFirst(ClaimTypes.Name)!.Value;
+            if (emplId != id)
+            {
+                var username = await _usersService.GetUsernameByEmployeeIdAsync(id);
+                EmployeeDetails.Username = username ?? "N/A";
+            }
         }
     }
 }

@@ -39,5 +39,6 @@ namespace HCM.Infrastructure.Entities
 
         [Column("manager_id")]
         public int? ManagerId { get; set; }
+        public Employee Manager { get; set; }
     }
 }

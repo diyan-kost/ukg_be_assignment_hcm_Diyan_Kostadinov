@@ -7,5 +7,7 @@ namespace HCM.Infrastructure.Repositories
         Task<User?> GetByUsernameAsync(string username);
 
         Task<User?> GetByIdAsync(int id);
+
+        Task<User?> GetByEmployeeIdAsync(int employeeId);
     }
 }
