@@ -1,0 +1,126 @@
+﻿@page
+@using HCM.Core.Models.Employee;
+
+@model PersonalModel
+
+<h1>HELLO</h1>
+@if (Model == null)
+{
+    /*
+                    var identity = (ClaimsIdentity)User.Identity;
+                        IEnumerable<Claim> claims = identity.Claims;
+     */
+}
+
+@* @if (Model != null)
+{
+    <form asp-controller="Employee" asp-action="RegisterUser" method="post" id="client-form">
+
+        <input type="hidden" name="isInternal" value="0" />
+
+        <div class="input-group container d-flex justify-content-center">
+
+            <div class="row row-cols-2 g-2">
+
+                
+                <div class="col">
+
+                    <div class="form-floating">
+                        <input type="number" min="0" id="cid" placeholder="Enter CID..." class="form-control" name="cid" value="@Model?.CID" />
+                        <label for="cid">CID</label>
+                    </div>
+
+                </div>
+
+                
+                <div class="col">
+
+                    @if (Model?.UserType == 0)
+                    {
+                        <div class="form-floating">
+                            <select name="userType" class="form-select" id="userTypeSelect">
+                                <option value="0" selected>iMerchant (0)</option>
+                                <option value="1">iPartner (1)</option>
+                            </select>
+                            <label for="userType">User Type</label>
+                        </div>
+                    }
+                    else if (Model?.UserType == 1)
+                    {
+                        <div class="form-floating">
+                            <select name="userType" class="form-select" id="userTypeSelect">
+                                <option value="0">iMerchant (0)</option>
+                                <option value="1" selected>iPartner (1)</option>
+                            </select>
+                            <label for="userType">User Type</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-floating">
+                            <select name="userType" class="form-select" id="userTypeSelect">
+                               
+                                <option value="0">iMerchant (0)</option>
+                                <option value="1">iPartner (1)</option>
+                            </select>
+                            <label for="userType">User Type</label>
+                        </div>
+                    }
+
+                </div>
+
+                
+                <div class="col">
+                    <div class="form-floating">
+                        <input type="text" id="username" placeholder="Enter Username..." class="form-control" name="username" value="@Model?.UserName" />
+                        <label for="username">Username</label>
+                    </div>
+                </div>
+
+
+
+                
+                <div class="col">
+                    <div class="form-floating">
+                        <input id="phone-number" type="number" placeholder="Enter Phone Number..." class="form-control"
+                               name="phoneNumber" value="@Model?.PhoneNumber" />
+                        <label for="phoneNumber">Phone Number</label>
+                    </div>
+                </div>
+
+                
+                <div class="col">
+
+                    <div class="form-floating">
+                        <select name="languageCode" class="form-select" id="languageCodeSelect">
+                            @foreach (LanguageCode lang in Enum.GetValues(typeof(LanguageCode)))
+                            {
+                                @if (Model?.LanguageCode == lang)
+                                {
+                                    <option value="@((int) lang)" selected>@lang.ToString()</option>
+                                }
+                                else
+                                {
+                                    <option value="@((int) lang)">@lang.ToString()</option>
+                                }
+                            }
+                        </select>
+                        <label for="userType">SMS Language</label>
+                    </div>
+
+                </div>
+
+                
+                <div class="col">
+                    <button id="register-button" type="submit" class="btn btn-dark" value="Register">
+                        Register User
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+}
+ *@

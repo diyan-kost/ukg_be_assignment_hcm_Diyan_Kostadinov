@@ -1,3 +1,5 @@
+using HCM.Core.Models.User;
+using HCM.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -7,14 +9,39 @@ namespace HCM.Web.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        private readonly IUsersService _usersService;
+
+        [BindProperty]
+        public LoginUserModel LoginUserModel { get; set; }
+
+        public IndexModel(ILogger<IndexModel> logger, IUsersService usersService)
         {
             _logger = logger;
+            _usersService = usersService;
         }
 
         public void OnGet()
         {
+            string? err = HttpContext.Session.GetString("ErrorMessage");
+            if (!string.IsNullOrEmpty(err))
+            {
+                TempData["ErrorMessage"] = err!;
+                HttpContext.Session.Remove("ErrorMessage");
+            }
+        }
 
+        public async Task<IActionResult> OnPostLoginAsync() 
+        {
+            await _usersService.LoginAsync(LoginUserModel);
+
+            return Redirect("Personal");
+        }
+
+        public async Task<IActionResult> OnPostLogoutAsync()
+        {
+            await _usersService.LogoutAsync();
+
+            return Redirect("Index");
         }
     }
 }
