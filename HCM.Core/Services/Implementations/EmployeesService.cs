@@ -1,8 +1,6 @@
-﻿using HCM.Core.Models.Employee;
-using HCM.Core.Models.Salary;
+﻿using HCM.Core.Mappers;
+using HCM.Core.Models.Employee;
 using HCM.Infrastructure.Repositories;
-using Microsoft.CodeAnalysis.Operations;
-using System.Text;
 
 namespace HCM.Core.Services.Implementations
 {
@@ -24,41 +22,11 @@ namespace HCM.Core.Services.Implementations
             if (employee == null)
                 throw new Exception("Employee not found");
 
-            var managerName = "None";
-            if (employee.Manager != null)
-            {
-
-                var fullName = new StringBuilder(employee.Manager.FirstName);
-
-                if (!string.IsNullOrEmpty(employee.Manager.MiddleName))
-                    fullName.Append($" {employee.Manager.MiddleName}");
-
-                if (!string.IsNullOrEmpty(employee.Manager.LastName))
-                    fullName.Append($" {employee.Manager.LastName}");
-
-                managerName = fullName.ToString();
-            }
-
             var salaries = await _salariesRepository.GetSalariesByEmployeeIdAsync(employee.Id);
 
-            var employeeDetails = new EmployeeDetails()
-            {
-                FirstName = employee.FirstName,
-                MiddleName = employee.LastName,
-                LastName = employee.LastName,
-                NationalIdNumber = employee.NationalIdNumber,
-                PhoneNumber = employee.PhoneNumber,
-                Email = employee.Email,
-                CurrentAddress = employee.CurrentAddress,
-                DateOfBirth = employee.DateOfBirth,
-                Gender = employee.Gender,
-                HiredAt = employee.HiredAt,
-                ManagerName = managerName,
-                ManagerId = employee.ManagerId,
-                Salaries = salaries
-                .Select(s => new SalaryDetails { Amount = s.Amount, EffectiveDate = s.EffectiveDate, Note = s.Note })
-                .ToList()
-            };
+            var salaryDetails = salaries.ToSalaryDetails();
+
+            var employeeDetails = employee.ToEmployeeDetails(salaryDetails);
 
             return employeeDetails;
         }
@@ -67,14 +35,7 @@ namespace HCM.Core.Services.Implementations
         {
             var employees = await _employeesRepository.GetByManagerIdAsync(managerId);
 
-            var employeeBasicInfoList = employees.Select(e => new EmployeeBasicInfo()
-            {
-                Id = e.Id,
-                FullName = $"{e.FirstName} {e.MiddleName} {e.LastName}",
-                Email = e.Email,
-                PhoneNumber = e.PhoneNumber,
-                HiredAt = e.HiredAt,
-            });
+            var employeeBasicInfoList = employees.ToEmployeeBasicInfo();
 
             return employeeBasicInfoList;
         }
@@ -83,15 +44,7 @@ namespace HCM.Core.Services.Implementations
         {
             var employees = await _employeesRepository.GetAllAsync();
 
-            var employeeBasicInfoList = employees.Select(e => new EmployeeBasicInfo()
-            {
-                Id = e.Id,
-                FullName = $"{e.FirstName} {e.MiddleName} {e.LastName}",
-                Email = e.Email,
-                PhoneNumber = e.PhoneNumber,
-                HiredAt = e.HiredAt,
-                Manager = e.Manager != null ? $"{e.Manager.FirstName} {e.MiddleName} {e.LastName}" : null
-            });
+            var employeeBasicInfoList = employees.ToEmployeeBasicInfo();
 
             return employeeBasicInfoList;
         }
