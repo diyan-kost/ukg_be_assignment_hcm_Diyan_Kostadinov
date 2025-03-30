@@ -12,184 +12,120 @@
 <br />
 @if (Model != null && details != null)
 {
-    if (User.IsInRole("Employee"))
-    {
-        <div>
-            <h4 class="mb-3">Billing address</h4>
-            <form class="needs-validation" novalidate>
-                <div class="row g-3">
+    <div>
+        <h4 class="mb-3">Billing address</h4>
+        <form asp-page-handler="UpdateEmployee" class="needs-validation" method="post" novalidate>
+            <div class="row g-3">
 
-                    <div class="col-sm-4">
-                        <label for="firstName" class="form-label">First name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="" value="@details.FirstName" required>
-                        <div class="invalid-feedback">
-                            Valid first name is required.
-                        </div>
+                <div class="col-sm-4">
+                    <label for="firstName" class="form-label">First name</label>
+                    <input asp-for="UpdateEmployeeModel.FirstName" type="text" class="form-control" id="firstName" placeholder="" value="@details.FirstName" required>
+                    <div class="invalid-feedback">
+                        Valid first name is required.
                     </div>
-
-                    <div class="col-sm-4">
-                        <label for="middleName" class="form-label">Middle name <span class="text-body-secondary">(Optional)</span></label>
-                        <input type="text" class="form-control" id="middleName" placeholder="" value="@details.MiddleName">
-                        <div class="invalid-feedback">
-                            Valid middle name is required.
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4">
-                        <label for="lastName" class="form-label">Last name <span class="text-body-secondary">(Optional)</span></label>
-                        <input type="text" class="form-control" id="lastName" placeholder="" value="@details.LastName">
-                        <div class="invalid-feedback">
-                            Valid last name is required.
-                        </div>
-                    </div>
-
-
-                    <div class="col-12">
-                        <label for="username" class="form-label">Username</label>
-                        <div class="input-group has-validation">
-                            <input type="text" class="form-control" id="username" placeholder="Username" value="@details.Username" required disabled>
-                            <div class="invalid-feedback">
-                                Your username is required.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com" value="@details.Email" required disabled>
-                        <div class="invalid-feedback">
-                            Please enter a valid email address.
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="phoneNumber" class="form-label">Phone Number</label>
-                        <input type="text" class="form-control" id="phoneNumber" placeholder="+359555555555" value="@details.PhoneNumber" required>
-                        <div class="invalid-feedback">
-                            Please enter a valid phone number.
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" placeholder="1234 Main St" value="@details.CurrentAddress" required>
-                        <div class="invalid-feedback">
-                            Please enter your current address.
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="managerName" class="form-label">Manager</label>
-                        <input type="text" class="form-control" id="managerName" placeholder="Ivan Ivanov" value="@details.ManagerName" disabled>
-                    </div>
-
                 </div>
 
-                <hr class="my-4">
-
-                <table class="table" id="salariesTable">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Salary</th>
-                            <th scope="col">Effective Date</th>
-                            <th scope="col">Note</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for(var i = 0; i < details.Salaries.Count; i++)
-                        {
-                            <tr class="@(i == 0 ? "table-active" : "")">
-                                <th scope="row">@(i + 1)</th>
-                                <td>@details.Salaries[i].Amount</td>
-                                <td>@details.Salaries[i].EffectiveDate</td>
-                                <td>@details.Salaries[i].Note</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-
-                <button class="w-100 btn btn-primary btn-lg" type="submit">Save Changes</button>
-            </form>
-        </div>
-
-    }
-
-    else if (User.IsInRole("Manager"))
-    {
-        <div>
-            <h4 class="mb-3">Billing address</h4>
-            <form class="needs-validation" novalidate>
-                <div class="row g-3">
-
-                    <div class="col-sm-4">
-                        <label for="firstName" class="form-label">First name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="" value="@details.FirstName" required>
-                        <div class="invalid-feedback">
-                            Valid first name is required.
-                        </div>
+                <div class="col-sm-4">
+                    <label for="middleName" class="form-label">Middle name <span class="text-body-secondary">(Optional)</span></label>
+                    <input asp-for="UpdateEmployeeModel.MiddleName" type="text" class="form-control" id="middleName" placeholder="" value="@details.MiddleName">
+                    <div class="invalid-feedback">
+                        Valid middle name is required.
                     </div>
-
-                    <div class="col-sm-4">
-                        <label for="middleName" class="form-label">Middle name <span class="text-body-secondary">(Optional)</span></label>
-                        <input type="text" class="form-control" id="middleName" placeholder="" value="@details.MiddleName">
-                        <div class="invalid-feedback">
-                            Valid middle name is required.
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4">
-                        <label for="lastName" class="form-label">Last name <span class="text-body-secondary">(Optional)</span></label>
-                        <input type="text" class="form-control" id="lastName" placeholder="" value="@details.LastName">
-                        <div class="invalid-feedback">
-                            Valid last name is required.
-                        </div>
-                    </div>
-
-
-                    <div class="col-12">
-                        <label for="username" class="form-label">Username</label>
-                        <div class="input-group has-validation">
-                            <input type="text" class="form-control" id="username" placeholder="Username" value="@details.Username" required disabled>
-                            <div class="invalid-feedback">
-                                Your username is required.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com" value="@details.Email" required disabled>
-                        <div class="invalid-feedback">
-                            Please enter a valid email address.
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="phoneNumber" class="form-label">Phone Number</label>
-                        <input type="text" class="form-control" id="phoneNumber" placeholder="+359555555555" value="@details.PhoneNumber" required>
-                        <div class="invalid-feedback">
-                            Please enter a valid phone number.
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" placeholder="1234 Main St" value="@details.CurrentAddress" required>
-                        <div class="invalid-feedback">
-                            Please enter your current address.
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="managerName" class="form-label">Manager</label>
-                        <input type="text" class="form-control" id="managerName" placeholder="Ivan Ivanov" value="@details.ManagerName" disabled>
-                    </div>
-
                 </div>
 
-                <hr class="my-4">
+                <div class="col-sm-4">
+                    <label for="lastName" class="form-label">Last name <span class="text-body-secondary">(Optional)</span></label>
+                    <input asp-for="UpdateEmployeeModel.LastName" type="text" class="form-control" id="lastName" placeholder="" value="@details.LastName">
+                    <div class="invalid-feedback">
+                        Valid last name is required.
+                    </div>
+                </div>
 
+
+                <div class="col-12">
+                    <label for="username" class="form-label">Username</label>
+                    <div class="input-group has-validation">
+                        <input type="text" class="form-control" id="username" placeholder="Username" value="@details.Username" required readonly>
+                        <div class="invalid-feedback">
+                            Username is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="email" class="form-label">Email</label>
+                    @if (User.IsInRole("HR Admin"))
+                    {
+                        <input asp-for="UpdateEmployeeModel.Email" type="email" class="form-control" id="email" placeholder="you@example.com" value="@details.Email" required>
+                    }
+                    else
+                    {
+                        <input asp-for="UpdateEmployeeModel.Email" type="email" class="form-control" id="email" placeholder="you@example.com" value="@details.Email" required readonly>
+                    }
+                    <div class="invalid-feedback">
+                        Please enter a valid email address.
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input asp-for="UpdateEmployeeModel.PhoneNumber" type="text" class="form-control" id="phoneNumber" placeholder="+359555555555" value="@details.PhoneNumber" required>
+                    <div class="invalid-feedback">
+                        Please enter a valid phone number.
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="address" class="form-label">Address</label>
+                    <input asp-for="UpdateEmployeeModel.Address" type="text" class="form-control" id="address" placeholder="1234 Main St" value="@details.CurrentAddress" required>
+                    <div class="invalid-feedback">
+                        Please enter your current address.
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="managerName" class="form-label">Manager</label>
+                    <input type="text" class="form-control" id="managerName" placeholder="Ivan Ivanov" value="@details.ManagerName" readonly>
+                </div>
+
+                <div class="col-4">
+                    <label for="nationalId" class="form-label">National ID</label>
+                    @if (User.IsInRole("HR Admin"))
+                    {
+                        <input asp-for="UpdateEmployeeModel.NationalIdNumber" type="text" class="form-control" id="nationalId" placeholder="9000000000" value="@details.NationalIdNumber">
+                    }
+                    else
+                    {
+                        <input asp-for="UpdateEmployeeModel.NationalIdNumber" type="text" class="form-control" id="nationalId" placeholder="9000000000" value="@details.NationalIdNumber" readonly>
+                    }
+                </div>
+
+                <div class="col-4">
+                    <label for="gender" class="form-label">Gender</label>
+                    <input type="text" class="form-control" id="gender" placeholder="Gender" value="@details.Gender" readonly>
+                </div>
+
+                <div class="col-4">
+                    <label for="hiredAt" class="form-label">Hired At</label>
+                    <input type="text" class="form-control" id="hiredAt" placeholder="2025-01-01" value="@details.HiredAt.ToString("D")" readonly>
+                </div>
+
+            </div>
+
+            <hr class="my-4"> 
+
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Save Changes</button>
+
+            <input asp-for="UpdateEmployeeModel.ManagerId" type="text" value="@details.ManagerId" style="display:none;" readonly/>
+            <input asp-for="UpdateEmployeeModel.Id" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly/>
+        </form>
+
+        <br />
+
+        @if (User.IsInRole("HR Admin"))
+        {
+            
+            <form method="post" asp-page-handler="AddSalary">
                 <table class="table" id="salariesTable">
                     <thead>
                         <tr>
@@ -212,117 +148,29 @@
                     </tbody>
                 </table>
 
-                <button class="w-100 btn btn-primary btn-lg" type="submit">Save Changes</button>
-            </form>
-        </div>
-    }
-
-    else if (User.IsInRole("HR Admin"))
-    {
-        <div>
-            <h4 class="mb-3">Billing address</h4>
-            <form class="needs-validation" novalidate>
-                <div class="row g-3">
-
-                    <div class="col-sm-4">
-                        <label for="firstName" class="form-label">First name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="" value="@details.FirstName" required>
-                        <div class="invalid-feedback">
-                            Valid first name is required.
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4">
-                        <label for="middleName" class="form-label">Middle name <span class="text-body-secondary">(Optional)</span></label>
-                        <input type="text" class="form-control" id="middleName" placeholder="" value="@details.MiddleName">
-                        <div class="invalid-feedback">
-                            Valid middle name is required.
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4">
-                        <label for="lastName" class="form-label">Last name <span class="text-body-secondary">(Optional)</span></label>
-                        <input type="text" class="form-control" id="lastName" placeholder="" value="@details.LastName">
-                        <div class="invalid-feedback">
-                            Valid last name is required.
-                        </div>
-                    </div>
-
-
-                    <div class="col-12">
-                        <label for="username" class="form-label">Username</label>
-                        <div class="input-group has-validation">
-                            <input type="text" class="form-control" id="username" placeholder="Username" value="@details.Username" required>
-                            <div class="invalid-feedback">
-                                Your username is required.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com" value="@details.Email" required>
-                        <div class="invalid-feedback">
-                            Please enter a valid email address.
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="phoneNumber" class="form-label">Phone Number</label>
-                        <input type="text" class="form-control" id="phoneNumber" placeholder="+359555555555" value="@details.PhoneNumber" required>
-                        <div class="invalid-feedback">
-                            Please enter a valid phone number.
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" placeholder="1234 Main St" value="@details.CurrentAddress" required>
-                        <div class="invalid-feedback">
-                            Please enter your current address.
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="managerName" class="form-label">Manager</label>
-                        <input type="text" class="form-control" id="managerName" placeholder="Ivan Ivanov" value="@details.ManagerName" disabled>
-                    </div>
-
+                <div class="col-4">
+                    <label for="salaryAmount" class="form-label">New Salary</label>
+                    <input asp-for="AddSalaryModel.Amount" type="number" min="0" step="0.01" class="form-control" id="salaryAmount" placeholder="1234" value="">
                 </div>
+
+                <div class="col-4">
+                    <label for="effectiveDate" class="form-label">Effective Date</label>
+                    <input asp-for="AddSalaryModel.EffectiveDate" type="date" class="form-control" id="effectiveDate" value="">
+                </div>
+
+                <div class="col-12">
+                    <label for="note" class="form-label">Note <span class="text-body-secondary">(Optional)</span></label>
+                    <input asp-for="AddSalaryModel.Note" type="text" class="form-control" id="note" value="">
+                </div>
+
+                <input asp-for="AddSalaryModel.EmployeeId" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly />
 
                 <hr class="my-4">
 
-                <table class="table" id="salariesTable">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Salary</th>
-                            <th scope="col">Effective Date</th>
-                            <th scope="col">Note</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (var i = 0; i < details.Salaries.Count; i++)
-                        {
-                            <tr class="@(i == 0 ? "table-active" : "")">
-                                <th scope="row">@(i + 1)</th>
-                                <td>@details.Salaries[i].Amount</td>
-                                <td>@details.Salaries[i].EffectiveDate</td>
-                                <td>@details.Salaries[i].Note</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-
-                <button class="w-100 btn btn-primary btn-lg" type="submit">Save Changes</button>
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Update Salary</button>
             </form>
-        </div>
-    }
+        }
 
-    else
-    {
-        <h1>Error</h1>
-    }
-
+    </div>
 }
 

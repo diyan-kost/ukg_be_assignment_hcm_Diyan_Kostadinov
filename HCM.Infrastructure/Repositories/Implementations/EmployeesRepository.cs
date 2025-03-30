@@ -21,13 +21,25 @@ namespace HCM.Infrastructure.Repositories.Implementations
             return employees;
         }
 
-        public async Task<Employee?> GetByIdAsync(int id) 
+        public async Task<Employee?> GetByIdAsync(int id, bool asNoTracking = true) 
         {
-            var employee = await _dbContext.Employees
-                .Include(e => e.Manager)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(e => e.Id == id);
-            
+            Employee? employee = null;
+
+            if (asNoTracking)
+            {
+                employee = await _dbContext.Employees
+                    .Include(e => e.Manager)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(e => e.Id == id);
+            }
+
+            else
+            {
+                employee = await _dbContext.Employees
+                    .Include(e => e.Manager)
+                    .FirstOrDefaultAsync(e => e.Id == id);
+            }
+
             return employee;
         }
 
@@ -38,6 +50,11 @@ namespace HCM.Infrastructure.Repositories.Implementations
                 .Where(e => e.ManagerId == managerId);
 
             return employees;
+        }
+
+        public async Task SaveTrackingChangesAsync()
+        {
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

@@ -27,6 +27,7 @@ namespace HCM.Core.Services.Implementations
             var managerName = "None";
             if (employee.Manager != null)
             {
+
                 var fullName = new StringBuilder(employee.Manager.FirstName);
 
                 if (!string.IsNullOrEmpty(employee.Manager.MiddleName))
@@ -53,6 +54,7 @@ namespace HCM.Core.Services.Implementations
                 Gender = employee.Gender,
                 HiredAt = employee.HiredAt,
                 ManagerName = managerName,
+                ManagerId = employee.ManagerId,
                 Salaries = salaries
                 .Select(s => new SalaryDetails { Amount = s.Amount, EffectiveDate = s.EffectiveDate, Note = s.Note })
                 .ToList()
@@ -92,6 +94,25 @@ namespace HCM.Core.Services.Implementations
             });
 
             return employeeBasicInfoList;
+        }
+
+        public async Task UpdateEmployeeAsync(UpdateEmployeeModel model)
+        {
+            var employee = await _employeesRepository.GetByIdAsync(model.Id, false);
+
+            if (employee == null)
+                throw new Exception("Employee not found");
+
+            employee.FirstName = model.FirstName;
+            employee.MiddleName = model.MiddleName;
+            employee.LastName = model.LastName;
+            employee.ManagerId = model.ManagerId;
+            employee.Email = model.Email;
+            employee.PhoneNumber = model.PhoneNumber;
+            employee.CurrentAddress = model.Address;
+            employee.NationalIdNumber = model.NationalIdNumber;
+
+            await _employeesRepository.SaveTrackingChangesAsync();
         }
     }
 }

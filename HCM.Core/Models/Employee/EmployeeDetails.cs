@@ -26,6 +26,8 @@ namespace HCM.Core.Models.Employee
 
         public string? ManagerName { get; set; }
 
+        public int? ManagerId { get; set; }
+
         public string Username { get; set; }
 
         public List<SalaryDetails> Salaries { get; set; }

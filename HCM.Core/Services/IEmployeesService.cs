@@ -9,5 +9,7 @@ namespace HCM.Core.Services
         Task<IEnumerable<EmployeeBasicInfo>> GetEmployeesByManagerId(int managerId);
 
         Task<IEnumerable<EmployeeBasicInfo>> GetAllEmployees();
+
+        Task UpdateEmployeeAsync(UpdateEmployeeModel model);
     }
 }

@@ -20,5 +20,14 @@ namespace HCM.Infrastructure.Repositories.Implementations
 
             return salaries;
         }
+
+        public async Task<Salary> AddNewSalaryAsync(Salary salary)
+        {
+            await _dbContext.Salaries.AddAsync(salary);
+
+            await _dbContext.SaveChangesAsync();
+
+            return salary;
+        }
     }
 }
