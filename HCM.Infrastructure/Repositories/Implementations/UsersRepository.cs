@@ -16,6 +16,7 @@ namespace HCM.Infrastructure.Repositories.Implementations
         {
             var user = await _dbContext.Users
                 .Include(u => u.Role)
+                .Include(u => u.Employee)
                 .FirstOrDefaultAsync(u => u.Username == username);
 
             return user;

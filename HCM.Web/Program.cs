@@ -47,6 +47,7 @@ namespace HCM.Web
                 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
                 builder.Services.AddScoped<IUsersService, UsersService>();
 
+
                 builder.Services.AddScoped<IEmployeesService, EmployeesService>();
                 builder.Services.AddScoped<IEmployeesRepository, EmployeesRepository>();
 

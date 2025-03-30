@@ -30,7 +30,7 @@ namespace HCM.Core.Services.Implementations
             if (inputPasswordHash != user.Password_Hash)
                 throw new Exception("Username or password is incorrect"); // Bad request exception
 
-            var userClaims = LoginHelper.GenerateClaims(user.Id, loginUserModel.Username, user.Role.Name);
+            var userClaims = LoginHelper.GenerateClaims(user.Id, loginUserModel.Username, user.Role.Name, user.EmployeeId);
 
             var context = _httpContextAccessor.HttpContext;
 

@@ -1,3 +1,4 @@
+using HCM.Core.Helpers;
 using HCM.Core.Models.Employee;
 using HCM.Core.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -23,9 +24,9 @@ namespace HCM.Web.Pages
         public async Task OnGet()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var userId = Convert.ToInt32(identity.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var id = Convert.ToInt32(identity.FindFirst(CustomClaims.EmployeeId).Value);
 
-            var employeeDetails = await _employeesService.GetEmployeeDetailsByUserId(userId);
+            var employeeDetails = await _employeesService.GetEmployeeDetailsById(id);
 
             Console.WriteLine("test");
         }

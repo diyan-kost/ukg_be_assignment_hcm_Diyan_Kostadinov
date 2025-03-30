@@ -11,56 +11,40 @@
 @model IndexModel
 
 <style>
-
-/*     html,
-    body {
-        height: 100%;
-    }
- */
-/*     body {
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-align: center;
-        align-items: center;
-        padding-top: 40px;
-        padding-bottom: 40px;
-        background-color: #f5f5f5;
-    } */
-
     .form-signin {
         width: 100%;
         max-width: 330px;
         padding: 15px;
         margin: auto;
     }
-
-        .form-signin .checkbox {
-            font-weight: 400;
-        }
-
-        .form-signin .form-control {
-            position: relative;
-            box-sizing: border-box;
-            height: auto;
-            padding: 10px;
-            font-size: 16px;
-        }
-
-            .form-signin .form-control:focus {
-                z-index: 2;
-            }
-
-        .form-signin input[type="email"] {
-            margin-bottom: -1px;
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 0;
-        }
-
-        .form-signin input[type="password"] {
-            margin-bottom: 10px;
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-        }
+    
+    .form-signin .checkbox {
+        font-weight: 400;
+    }
+    
+    .form-signin .form-control {
+        position: relative;
+        box-sizing: border-box;
+        height: auto;
+        padding: 10px;
+        font-size: 16px;
+    }
+    
+    .form-signin .form-control:focus {
+        z-index: 2;
+    }
+    
+    .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    
+    .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
 </style>
 
  @if (User?.Identity?.IsAuthenticated != true) 
@@ -89,33 +73,3 @@ else
         <h3>Still a work in progress</h3>
     </div>
 }
-
-@* <section class="vh-70 gradient-custom">
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                    <div class="card-body p-5 text-center">
-
-                        <div class="mb-md-5 mt-md-4 pb-5">
-
-                            <p class="text-white-50 mb-5">Enter your username and password</p>
-
-                            <div class="form-outline form-white mb-4">
-                                <input class="form-control" type="text" name="username" placeholder="Username" />
-                                <label class="form-label" for="typeUsernameX">Username</label>
-                            </div>
-
-                            <div class="form-outline form-white mb-4">
-                                <input class="form-control" type="password" name="password" placeholder="Password" />
-                                <label class="form-label" for="typePasswordX">Password</label>
-                            </div>
-
-                            <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> *@

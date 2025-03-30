@@ -5,6 +5,11 @@ using System.Text;
 
 namespace HCM.Core.Helpers
 {
+    public static class CustomClaims
+    {
+        public const string EmployeeId = "EmployeeId";
+    }
+
     public static class LoginHelper
     {
         /// <summary>
@@ -20,13 +25,14 @@ namespace HCM.Core.Helpers
             }
         }
 
-        public static ClaimsPrincipal GenerateClaims(int userId, string username, string role)
+        public static ClaimsPrincipal GenerateClaims(int userId, string username, string role, int employeeId)
         {
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
                 new Claim(ClaimTypes.Name, username),
-                new Claim(ClaimTypes.Role, role)
+                new Claim(ClaimTypes.Role, role),
+                new Claim(CustomClaims.EmployeeId, employeeId.ToString())
             };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
