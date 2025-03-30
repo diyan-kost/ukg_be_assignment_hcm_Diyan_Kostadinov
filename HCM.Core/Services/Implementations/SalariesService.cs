@@ -1,4 +1,6 @@
-﻿using HCM.Core.Models.Salary;
+﻿using FluentValidation;
+using HCM.Core.Models.Salary;
+using HCM.Core.Validators;
 using HCM.Infrastructure.Entities;
 using HCM.Infrastructure.Repositories;
 
@@ -15,6 +17,10 @@ namespace HCM.Core.Services.Implementations
 
         public async Task AddNewSalary(AddSalaryModel model)
         {
+            var validator = new SalaryValidator();
+
+            await validator.ValidateAndThrowAsync(model);
+
             var salary = new Salary()
             {
                 Amount = model.Amount,

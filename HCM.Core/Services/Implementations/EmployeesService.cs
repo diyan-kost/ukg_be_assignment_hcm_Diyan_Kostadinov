@@ -1,6 +1,8 @@
-﻿using HCM.Core.Exceptions;
+﻿using FluentValidation;
+using HCM.Core.Exceptions;
 using HCM.Core.Mappers;
 using HCM.Core.Models.Employee;
+using HCM.Core.Validators;
 using HCM.Infrastructure.Repositories;
 
 namespace HCM.Core.Services.Implementations
@@ -52,6 +54,10 @@ namespace HCM.Core.Services.Implementations
 
         public async Task UpdateEmployeeAsync(UpdateEmployeeModel model)
         {
+            var validator = new UpdateEmployeeValidator();
+
+            await validator.ValidateAndThrowAsync(model);
+
             var employee = await _employeesRepository.GetByIdAsync(model.Id, false);
 
             if (employee == null)
