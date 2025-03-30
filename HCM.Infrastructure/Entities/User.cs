@@ -13,5 +13,9 @@ namespace HCM.Infrastructure.Entities
         [Column("role_id")]
         public int RoleId { get; set; }
         public Role Role { get; set; } = null!;
+
+        [Column("employee_id")]
+        public int EmployeeId { get; set; }
+        public Employee Employee { get; set; }
     }
 }

@@ -37,12 +37,9 @@ namespace HCM.Infrastructure.Entities
         [Column("hired_at")]
         public DateTime HiredAt { get; set; }
 
-        [Column("user_id")]
-        public int? UserId { get; set; }
-
         [Column("manager_id")]
         public int? ManagerId { get; set; }
         
-        public User User { get; set; }
+        public Employee User { get; set; }
     }
 }
