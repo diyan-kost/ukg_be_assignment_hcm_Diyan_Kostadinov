@@ -52,6 +52,24 @@ namespace HCM.Infrastructure.Repositories.Implementations
             return employees;
         }
 
+        public async Task<bool> ExistsByPhoneNumber(string phoneNumber)
+        {
+            return await _dbContext.Employees
+                .AnyAsync(e => e.PhoneNumber == phoneNumber);
+        }
+
+        public async Task<bool> ExistsByEmail(string email)
+        {
+            return await _dbContext.Employees
+                .AnyAsync(e => e.Email == email);
+        }
+
+        public async Task<bool> ExistsByNationalIdNumber(string nationalIdNumber)
+        {
+            return await _dbContext.Employees
+                .AnyAsync(e => e.NationalIdNumber == nationalIdNumber);
+        }
+
         public async Task SaveTrackingChangesAsync()
         {
             await _dbContext.SaveChangesAsync();

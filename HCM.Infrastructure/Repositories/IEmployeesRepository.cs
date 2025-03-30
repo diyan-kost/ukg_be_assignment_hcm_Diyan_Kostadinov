@@ -10,6 +10,12 @@ namespace HCM.Infrastructure.Repositories
 
         Task<IEnumerable<Employee>> GetAllAsync();
 
+        Task<bool> ExistsByPhoneNumber(string phoneNumber);
+
+        Task<bool> ExistsByEmail(string email);
+
+        Task<bool> ExistsByNationalIdNumber(string nationalIdNumber);
+
         Task SaveTrackingChangesAsync();
     }
 }
