@@ -55,6 +55,7 @@ namespace HCM.Web
                 builder.Services.AddScoped<ISalariesRepository, SalariesRepository>();
 
                 builder.Services.AddScoped<IRolesRepository, RolesRepository>();
+                builder.Services.AddScoped<IRolesService, RolesService>();
 
                 builder.Services.AddScoped<UsersController>();
             }

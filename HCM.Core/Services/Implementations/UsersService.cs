@@ -85,9 +85,9 @@ namespace HCM.Core.Services.Implementations
                 throw new EntityNotFoundException("User not found");
 
             int roleId = user.RoleId;
-            if (user.Role != null)
+            if (model.Role != null)
             {
-                var role = await _rolesRepository.GetByNameAsync(model.Role!);
+                var role = await _rolesRepository.GetByIdAsync(model.Role.Value);
 
                 if (role == null)
                     throw new EntityNotFoundException("Role not found");
@@ -113,6 +113,16 @@ namespace HCM.Core.Services.Implementations
                 throw new EntityNotFoundException("User not found");
 
             await _usersRepository.DeleteAsync(user);
+        }
+
+        public async Task<string> GetUserRoleByUsernameAsync(string username)
+        {
+            var user = await _usersRepository.GetByUsernameAsync(username);
+
+            if (user == null)
+                throw new EntityNotFoundException("User not found");
+
+            return user.Role.Name;
         }
     }
 }

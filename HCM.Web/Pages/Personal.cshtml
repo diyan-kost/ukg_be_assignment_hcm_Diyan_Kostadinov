@@ -111,77 +111,85 @@
 
         <hr class="my-4"> 
 
-       
-            @if (User.IsInRole("HR Admin"))
+
+        @if (User.IsInRole("HR Admin"))
+        {
+            if(details.Username == null)
             {
-                if(details.Username == null)
-                {
-                    <form method="post" asp-page-handler="CreateUser">
-                        <div class="col-6">
-                            <label for="username" class="form-label">Username</label>
-                            <div class="input-group has-validation">
-                                <input asp-for="CreateUser.Username" type="text" class="form-control" id="username" placeholder="Username" value="" required>
-                                <div class="invalid-feedback">
-                                    Username is required.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <label for="password" class="form-label">New Password</label>
-                            <div class="input-group has-validation">
-                                <input asp-for="CreateUser.Password" type="password" class="form-control" id="password" placeholder="***" value="">
-                                <div class="invalid-feedback">
-                                    Password is required.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-5">
-                            <label for="role" class="form-label">Role</label>
-                            <select asp-for="CreateUser.Role" class="form-select" id="role" required>
-                                <option value="Employee" selected>Employee</option>
-                                <option value="Manager">Manager</option>
-                                <option value="HR Admin">HR Admin</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please select a valid role.
-                            </div>
-                        </div>
-
-                        <button class="w-100 btn btn-primary btn-lg" type="submit">Create User</button>
-                        
-                        <input asp-for="CreateUser.EmployeeId" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly />
-                    </form>
-
-                    
-
-                }
-                else
-                {
+                <form method="post" asp-page-handler="CreateUser">
                     <div class="col-6">
                         <label for="username" class="form-label">Username</label>
                         <div class="input-group has-validation">
-                            <input type="text" class="form-control" id="username" placeholder="Username" value="@details.Username" required readonly>
+                            <input asp-for="CreateUser.Username" type="text" class="form-control" id="username" placeholder="Username" value="" required>
                             <div class="invalid-feedback">
                                 Username is required.
                             </div>
                         </div>
                     </div>
 
-                    <br />
+                    <div class="col-6">
+                        <label for="password" class="form-label">New Password</label>
+                        <div class="input-group has-validation">
+                            <input asp-for="CreateUser.Password" type="password" class="form-control" id="password" placeholder="***" value="">
+                            <div class="invalid-feedback">
+                                Password is required.
+                            </div>
+                        </div>
+                    </div>
 
-                    <div>
+                    <div class="col-md-5">
+                        <label for="role" class="form-label">Role</label>
+                        <select asp-for="CreateUser.Role" class="form-select" id="role" required>
+                            <option value="Employee" selected>Employee</option>
+                            <option value="Manager">Manager</option>
+                            <option value="HR Admin">HR Admin</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select a valid role.
+                        </div>
+                    </div>
 
-                        <form method="post" asp-page-handler="UpdateUser">
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">Create User</button>
+
+                    <input asp-for="CreateUser.EmployeeId" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly />
+                </form>
+
+
+
+            }
+            else
+            {
+                <div class="col-6">
+                    <label for="username" class="form-label">Username</label>
+                    <div class="input-group has-validation">
+                        <input type="text" class="form-control" id="username" placeholder="Username" value="@details.Username" required readonly>
+                        <div class="invalid-feedback">
+                            Username is required.
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+
+                <div>
+
+                    <form method="post" asp-page-handler="UpdateUser">
 
                         <div class="col-md-5">
                             <label for="role" class="form-label">Role</label>
                             <select asp-for="UpdateUser.Role" class="form-select" id="role" required>
-                                <option value="" selected>Keep current role</option>
-                                <option value="Employee">Employee</option>
-                                <option value="Manager">Manager</option>
-                                <option value="HR Admin">HR Admin</option>
+                                @foreach(var role in Model.Roles)
+                                {
+                                    if (role.Name == details.Role)
+                                    {
+                                        <option value="@role.Id" selected>@role.Name</option>
+                                    }
+
+                                    else
+                                    {
+                                        <option value="@role.Id">@role.Name</option>
+                                    }
+                                }
                             </select>
                             <div class="invalid-feedback">
                                 Please select a valid role.

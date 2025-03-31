@@ -1,9 +1,11 @@
 using HCM.Core.Exceptions;
 using HCM.Core.Helpers;
 using HCM.Core.Models.Employee;
+using HCM.Core.Models.Role;
 using HCM.Core.Models.Salary;
 using HCM.Core.Models.User;
 using HCM.Core.Services;
+using HCM.Infrastructure.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,12 +19,14 @@ namespace HCM.Web.Pages
         private readonly IEmployeesService _employeesService;
         private readonly IUsersService _usersService;
         private readonly ISalariesService _salariesService;
+        private readonly IRolesService _rolesService;
 
-        public PersonalModel(IEmployeesService employeesService, IUsersService usersService, ISalariesService salariesService)
+        public PersonalModel(IEmployeesService employeesService, IUsersService usersService, ISalariesService salariesService, IRolesService rolesService)
         {
             _employeesService = employeesService;
             _usersService = usersService;
             _salariesService = salariesService;
+            _rolesService = rolesService;
         }
 
         [BindProperty]
@@ -42,6 +46,8 @@ namespace HCM.Web.Pages
 
         [BindProperty]
         public CreateUser CreateUser { get; set; }
+
+        public IEnumerable<RoleInfo> Roles { get; set; }
 
         public async Task OnGet(int id)
         {
@@ -102,6 +108,7 @@ namespace HCM.Web.Pages
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var loggedEmployeeId = Convert.ToInt32(identity!.FindFirst(CustomClaims.EmployeeId)!.Value);
+            var loggedEmployeeRole = identity.FindFirst(ClaimTypes.Role)!.Value;
 
             // Reload data after update
             var employeeDetails = await _employeesService.GetEmployeeDetailsById(id);
@@ -113,10 +120,22 @@ namespace HCM.Web.Pages
 
             EmployeeDetails = employeeDetails;
             EmployeeDetails.Username = identity.FindFirst(ClaimTypes.Name)!.Value;
+            EmployeeDetails.Role = identity.FindFirst(ClaimTypes.Role)!.Value;
             if (loggedEmployeeId != id)
             {
                 var username = await _usersService.GetUsernameByEmployeeIdAsync(id);
-                EmployeeDetails.Username = username /*?? "N/A"*/;
+                EmployeeDetails.Username = username;
+                EmployeeDetails.Role = null;
+                if (loggedEmployeeRole == "HR Admin" && username != null)
+                {
+                    var role = await _usersService.GetUserRoleByUsernameAsync(EmployeeDetails.Username!);
+                    EmployeeDetails.Role = role;
+                }
+            }
+
+            if (loggedEmployeeRole == "HR Admin")
+            {
+                Roles = await _rolesService.GetRolesAsync();
             }
         }
     }

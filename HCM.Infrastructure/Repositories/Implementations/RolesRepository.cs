@@ -12,12 +12,27 @@ namespace HCM.Infrastructure.Repositories.Implementations
             _dbContext = dbContex;
         }
 
-        public async Task<Role> GetByNameAsync(string name)
+        public async Task<Role?> GetByNameAsync(string name)
         {
             var role = await _dbContext.Roles
                 .FirstOrDefaultAsync(r => r.Name == name);
 
             return role;
+        }
+
+        public async Task<Role?> GetByIdAsync(int id)
+        {
+            var role = await _dbContext.Roles
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+            return role;
+        }
+
+        public async Task<IEnumerable<Role>> GetAllAsync()
+        {
+            var roles = _dbContext.Roles.AsNoTracking();
+
+            return roles;
         }
     }
 }
