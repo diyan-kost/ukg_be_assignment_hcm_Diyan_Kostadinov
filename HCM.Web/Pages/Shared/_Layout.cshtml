@@ -42,8 +42,17 @@
 
                         @if (User.IsInRole("Manager") || User.IsInRole("HR Admin"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Employees">Employees</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Employees
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    @if (User.IsInRole("HR Admin"))
+                                    {
+                                        <a class="dropdown-item text-dark" asp-page="/AddEmployee">Add</a>
+                                    }
+                                    <a class="dropdown-item text-dark" asp-area="" asp-page="/Employees">View</a>
+                                </div>
                             </li>
                         }
 
