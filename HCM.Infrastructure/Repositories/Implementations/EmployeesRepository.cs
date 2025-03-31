@@ -70,6 +70,15 @@ namespace HCM.Infrastructure.Repositories.Implementations
                 .AnyAsync(e => e.NationalIdNumber == nationalIdNumber);
         }
 
+        public async Task<Employee> AddNewEmployeeAsync(Employee employee)
+        {
+            await _dbContext.Employees.AddAsync(employee);
+
+            await _dbContext.SaveChangesAsync();
+
+            return employee;
+        }
+
         public async Task SaveTrackingChangesAsync()
         {
             await _dbContext.SaveChangesAsync();

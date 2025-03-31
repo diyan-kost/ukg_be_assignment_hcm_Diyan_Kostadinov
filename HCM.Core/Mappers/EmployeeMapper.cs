@@ -62,5 +62,26 @@ namespace HCM.Core.Mappers
 
             return employeeBasicInfoList;
         }
+
+        public static Employee ToEmployee(this AddNewEmployeeModel model)
+        {
+            var employee = new Employee()
+            {
+                FirstName = model.FirstName,
+                MiddleName = model.MiddleName,
+                LastName = model.LastName,
+                Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
+                HiredAt = model.HiredAt,
+                CurrentAddress = model.Address,
+                DateOfBirth = model.DateOfBirth,
+                IsEuCitizen = model.IsEuCitizen,
+                Gender = model.Gender,
+                NationalIdNumber = model.NationalIdNumber,
+                ManagerId = model.ManagerId,
+            };
+
+            return employee;
+        }
     }
 }

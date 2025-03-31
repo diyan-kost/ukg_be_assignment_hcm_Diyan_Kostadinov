@@ -11,5 +11,7 @@ namespace HCM.Core.Services
         Task<IEnumerable<EmployeeBasicInfo>> GetAllEmployees();
 
         Task UpdateEmployeeAsync(UpdateEmployeeModel model);
+
+        Task AddNewEmployeeAsync(AddNewEmployeeModel model);
     }
 }

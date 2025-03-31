@@ -16,6 +16,8 @@ namespace HCM.Infrastructure.Repositories
 
         Task<bool> ExistsByNationalIdNumber(string nationalIdNumber);
 
+        Task<Employee> AddNewEmployeeAsync(Employee employee);
+
         Task SaveTrackingChangesAsync();
     }
 }

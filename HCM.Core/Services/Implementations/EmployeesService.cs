@@ -84,8 +84,6 @@ namespace HCM.Core.Services.Implementations
                     throw new InvalidInputDataException("National ID number is already taken!");
             }
 
-
-
             employee.FirstName = model.FirstName;
             employee.MiddleName = model.MiddleName;
             employee.LastName = model.LastName;
@@ -96,6 +94,28 @@ namespace HCM.Core.Services.Implementations
             employee.NationalIdNumber = model.NationalIdNumber;
 
             await _employeesRepository.SaveTrackingChangesAsync();
+        }
+
+        public async Task AddNewEmployeeAsync(AddNewEmployeeModel model)
+        {
+            var validator = new AddNewEmployeeValidator();
+            await validator.ValidateAndThrowAsync(model);
+
+            var isPhoneNumberTaken = await _employeesRepository.ExistsByPhoneNumber(model.PhoneNumber);
+            if (isPhoneNumberTaken)
+                throw new InvalidInputDataException("Phone number is already taken!");
+
+            var isEmailTaken = await _employeesRepository.ExistsByEmail(model.Email);
+            if (isEmailTaken)
+                throw new InvalidInputDataException("Email is already taken!");
+
+            var isNationalIdTaken = await _employeesRepository.ExistsByNationalIdNumber(model.NationalIdNumber);
+            if (isNationalIdTaken)
+                throw new InvalidInputDataException("National ID number is already taken!");
+
+            var newEmployee = model.ToEmployee();
+
+            await _employeesRepository.AddNewEmployeeAsync(newEmployee);
         }
     }
 }
