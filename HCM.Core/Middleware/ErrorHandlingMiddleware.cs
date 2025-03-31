@@ -36,9 +36,12 @@ namespace HCM.Core.Middleware
                 else
                     errorMessage = "Oops, something went wrong! Please try again or contact us!";
 
+                string redirectTo = ex is PermissionDeniedException ?
+                    "/Index" :
+                    httpContext.Request.Path.Value;
 
                 httpContext.Session.SetString("ErrorMessage", errorMessage);
-                httpContext.Response.Redirect("/Index");
+                httpContext.Response.Redirect(redirectTo);
             }
         }
     }
