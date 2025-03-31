@@ -19,5 +19,7 @@ namespace HCM.Infrastructure.Repositories
         Task<Employee> AddNewEmployeeAsync(Employee employee);
 
         Task SaveTrackingChangesAsync();
+
+        Task DeleteAsync(Employee employee);
     }
 }

@@ -13,5 +13,7 @@ namespace HCM.Core.Services
         Task UpdateEmployeeAsync(UpdateEmployeeModel model);
 
         Task AddNewEmployeeAsync(AddNewEmployeeModel model);
+
+        Task DeleteEmployeeAsync(int id);
     }
 }

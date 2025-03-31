@@ -206,7 +206,7 @@
                     <div>
                         <form method="post" asp-page-handler="DeleteUser">
 
-                            <button class="w-100 btn btn-primary btn-lg col-3" type="submit">Delete User</button>
+                            <button class="w-100 btn btn-danger btn-lg col-3" type="submit">Delete User</button>
                             <input asp-for="DeleteUser.Username" type="text" value="@details.Username" style="display:none;" readonly />
                             <input asp-for="DeleteUser.EmployeeId" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly />
                         </form>
@@ -306,6 +306,15 @@
                 <hr class="my-4">
 
                 <button class="w-100 btn btn-primary btn-lg" type="submit">Update Salary</button>
+            </form>
+
+            <br>
+            <hr class="my-4">
+            <form method="post" asp-page-handler="DeleteEmployee">
+
+                <button class="w-100 btn btn-danger btn-lg" type="submit">Delete Employee</button>
+                <input type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly />
+
             </form>
         }
 

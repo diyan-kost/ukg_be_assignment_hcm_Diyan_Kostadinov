@@ -3,6 +3,7 @@ using HCM.Core.Exceptions;
 using HCM.Core.Mappers;
 using HCM.Core.Models.Employee;
 using HCM.Core.Validators;
+using HCM.Infrastructure.Entities;
 using HCM.Infrastructure.Repositories;
 
 namespace HCM.Core.Services.Implementations
@@ -11,11 +12,13 @@ namespace HCM.Core.Services.Implementations
     {
         private readonly IEmployeesRepository _employeesRepository;
         private readonly ISalariesRepository _salariesRepository; 
+        private readonly IUsersRepository _usersRepository;
 
-        public EmployeesService(IEmployeesRepository employeesRepository, ISalariesRepository salariesRepository)
+        public EmployeesService(IEmployeesRepository employeesRepository, ISalariesRepository salariesRepository, IUsersRepository usersRepository)
         {
             _employeesRepository = employeesRepository;
             _salariesRepository = salariesRepository;
+            _usersRepository = usersRepository;
         }
 
         public async Task<EmployeeDetails> GetEmployeeDetailsById(int id)
@@ -116,6 +119,19 @@ namespace HCM.Core.Services.Implementations
             var newEmployee = model.ToEmployee();
 
             await _employeesRepository.AddNewEmployeeAsync(newEmployee);
+
+            var salary = new Salary() { Amount = model.StartingSalary, EffectiveDate = model.SalaryEffectiveDate, EmployeeId = newEmployee.Id };
+
+            await _salariesRepository.AddNewSalaryAsync(salary);
+        }
+
+        public async Task DeleteEmployeeAsync(int id)
+        {
+            var employee = await _employeesRepository.GetByIdAsync(id, false);
+            if (employee == null)
+                throw new EntityNotFoundException("Employee not found");           
+
+            await _employeesRepository.DeleteAsync(employee);
         }
     }
 }

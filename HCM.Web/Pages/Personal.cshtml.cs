@@ -30,7 +30,7 @@ namespace HCM.Web.Pages
         }
 
         [BindProperty]
-        public EmployeeDetails EmployeeDetails { get; set; }
+        public EmployeeDetails? EmployeeDetails { get; set; }
 
         [BindProperty]
         public UpdateEmployeeModel UpdateEmployeeModel { get; set; }
@@ -102,6 +102,15 @@ namespace HCM.Web.Pages
             await _usersService.CreateUserAsync(CreateUser);
 
             await LoadEmployeeDetails(CreateUser.EmployeeId);
+        }
+
+        public async Task<IActionResult> OnPostDeleteEmployee()
+        {
+            int id = Convert.ToInt32(HttpContext.Request.RouteValues["id"]);
+
+            await _employeesService.DeleteEmployeeAsync(id);
+
+            return Redirect("/Index");
         }
 
         private async Task LoadEmployeeDetails(int id, bool checkManagerId = false)

@@ -29,6 +29,8 @@ namespace HCM.Infrastructure.Repositories.Implementations
             {
                 employee = await _dbContext.Employees
                     .Include(e => e.Manager)
+                    .Include(e => e.Users)
+                    .Include(e => e.Salaries)
                     .AsNoTracking()
                     .FirstOrDefaultAsync(e => e.Id == id);
             }
@@ -37,6 +39,8 @@ namespace HCM.Infrastructure.Repositories.Implementations
             {
                 employee = await _dbContext.Employees
                     .Include(e => e.Manager)
+                    .Include(e => e.Users)
+                    .Include(e => e.Salaries)
                     .FirstOrDefaultAsync(e => e.Id == id);
             }
 
@@ -77,6 +81,17 @@ namespace HCM.Infrastructure.Repositories.Implementations
             await _dbContext.SaveChangesAsync();
 
             return employee;
+        }
+
+        public async Task DeleteAsync(Employee employee)
+        {
+            _dbContext.Salaries.RemoveRange(employee.Salaries);
+
+            _dbContext.Users.RemoveRange(employee.Users);
+
+            _dbContext.Employees.Remove(employee);
+
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task SaveTrackingChangesAsync()

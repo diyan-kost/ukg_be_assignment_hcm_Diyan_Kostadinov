@@ -25,6 +25,7 @@
         public DateTime HiredAt { get; set; }
 
         public decimal StartingSalary { get; set; }
+        public DateTime SalaryEffectiveDate { get; set; }
 
         public int? ManagerId { get; set; }
     }
