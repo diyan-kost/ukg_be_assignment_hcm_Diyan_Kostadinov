@@ -1,6 +1,8 @@
 ﻿@page "{id:int}"
 
+@using HCM.Core.Helpers
 @using HCM.Core.Models.Employee;
+@using System.Security.Claims
 
 @model PersonalModel
 
@@ -101,9 +103,10 @@
 
             </div>
 
-            <hr class="my-4"> 
-
-            <button class="w-100 btn btn-primary btn-lg" type="submit">Save Changes</button>
+            <br />
+            <div class="col-4">
+                <button class="btn btn-primary" type="submit">Save Changes</button>
+            </div>
 
             <input asp-for="UpdateEmployeeModel.ManagerId" type="text" value="@details.ManagerId" style="display:none;" readonly/>
             <input asp-for="UpdateEmployeeModel.Id" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly/>
@@ -149,7 +152,10 @@
                         </div>
                     </div>
 
-                    <button class="w-100 btn btn-primary btn-lg" type="submit">Create User</button>
+                    <br />
+                    <div class="col-4">
+                        <button class="btn btn-primary" type="submit">Create User</button>
+                    </div>
 
                     <input asp-for="CreateUser.EmployeeId" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly />
                 </form>
@@ -159,15 +165,7 @@
             }
             else
             {
-                <div class="col-6">
-                    <label for="username" class="form-label">Username</label>
-                    <div class="input-group has-validation">
-                        <input type="text" class="form-control" id="username" placeholder="Username" value="@details.Username" required readonly>
-                        <div class="invalid-feedback">
-                            Username is required.
-                        </div>
-                    </div>
-                </div>
+                
 
                 <br />
 
@@ -175,19 +173,42 @@
 
                     <form method="post" asp-page-handler="UpdateUser">
 
-                        <div class="col-md-5">
+                        <div class="col-4">
+                            <label for="username" class="form-label">Username</label>
+                            <div class="input-group has-validation">
+                                <input asp-for="UpdateUser.Username" type="text" class="form-control" id="username" placeholder="Username" value="@details.Username" required readonly>
+                                <div class="invalid-feedback">
+                                    Username is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <label for="password" class="form-label">New Password</label>
+                            <div class="input-group has-validation">
+                                <input asp-for="UpdateUser.Password" type="password" class="form-control" id="password" placeholder="" value="">
+                                <div class="invalid-feedback">
+                                    Password is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
                             <label for="role" class="form-label">Role</label>
                             <select asp-for="UpdateUser.Role" class="form-select" id="role" required>
-                                @foreach(var role in Model.Roles)
+                                @if (Model.Roles.Any())
                                 {
-                                    if (role.Name == details.Role)
+                                    @foreach(var role in Model.Roles)
                                     {
-                                        <option value="@role.Id" selected>@role.Name</option>
-                                    }
+                                        if (role.Name == details.Role)
+                                        {
+                                            <option value="@role.Id" selected>@role.Name</option>
+                                        }
 
-                                    else
-                                    {
-                                        <option value="@role.Id">@role.Name</option>
+                                        else
+                                        {
+                                            <option value="@role.Id">@role.Name</option>
+                                        }
                                     }
                                 }
                             </select>
@@ -196,26 +217,33 @@
                             </div>
                         </div>
 
-                            <button class="w-100 btn btn-primary btn-lg col-3" type="submit">Update User</button>
-                            <input asp-for="UpdateUser.Username" type="text" value="@details.Username" style="display:none;" readonly />
-                            <input asp-for="UpdateUser.EmployeeId" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly />
-                        </form>
-                    </div>
+                        <br />
+
+                        <button class="btn btn-primary" type="submit">Update User</button>
+                        <input asp-for="UpdateUser.EmployeeId" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly />
+                    </form>
+                </div>
 
                     <br />
-                    <div>
+
+                @if (details.Username != User.FindFirst(ClaimTypes.Name)!.Value)
+                {
                         <form method="post" asp-page-handler="DeleteUser">
 
-                            <button class="w-100 btn btn-danger btn-lg col-3" type="submit">Delete User</button>
-                            <input asp-for="DeleteUser.Username" type="text" value="@details.Username" style="display:none;" readonly />
-                            <input asp-for="DeleteUser.EmployeeId" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly />
+                            <div class="col-4">
+                                <button class="btn btn-danger" type="submit">Delete User</button>
+                            </div>
+                            <input asp-for="Username" type="text" value="@details.Username" style="display:none;" readonly />
+                            @* <input asp-for="DeleteUser.EmployeeId" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly /> *@
                         </form>
-                    </div>
-
                 }
-                
+
             }
-            else if (User.IsInRole("Employee"))
+                
+        }
+        else 
+        {
+            @if (details.Username == User.FindFirst(ClaimTypes.Name)!.Value)
             {
                 <form method="post" asp-page-handler="UpdateUser">
                     <div class="col-6">
@@ -231,7 +259,7 @@
                     <div class="col-6">
                         <label for="password" class="form-label">New Password</label>
                         <div class="input-group has-validation">
-                            <input  asp-for="UpdateUser.Password" type="password" class="form-control" id="password" placeholder="***" value="" >
+                            <input  asp-for="UpdateUser.Password" type="password" class="form-control" id="password" placeholder="" value="" >
                             <div class="invalid-feedback">
                                 Password is required.
                             </div>
@@ -240,8 +268,10 @@
                     
                     <br />
 
-                <button class="w-100 btn btn-primary btn-lg" type="submit">Update password</button>
-                <input asp-for="UpdateUser.EmployeeId" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly />
+                    <div class="col-4">
+                        <button class="btn btn-primary" type="submit">Update password</button>
+                    </div>
+                    <input asp-for="UpdateUser.EmployeeId" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly />
 
                 </form>
             }
@@ -251,14 +281,13 @@
                     <label for="username" class="form-label">Username</label>
                     <div class="input-group has-validation">
                         <input type="text" class="form-control" id="username" placeholder="Username" value="@(details.Username ?? "N/A")" required readonly>
-                        <div class="invalid-feedback">
-                            Username is required.
-                        </div>
                     </div>
                 </div>
             }
+        }
 
-        <br />
+
+        <hr class="my-4">
 
         @if (User.IsInRole("HR Admin"))
         {
@@ -303,19 +332,25 @@
 
                 <input asp-for="AddSalaryModel.EmployeeId" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly />
 
-                <hr class="my-4">
-
-                <button class="w-100 btn btn-primary btn-lg" type="submit">Update Salary</button>
+                <br />
+                <div class="col-4">
+                    <button class="btn btn-primary" type="submit">Update Salary</button>
+                </div>
             </form>
 
-            <br>
             <hr class="my-4">
-            <form method="post" asp-page-handler="DeleteEmployee">
 
-                <button class="w-100 btn btn-danger btn-lg" type="submit">Delete Employee</button>
-                <input type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly />
+            @if (ViewContext.RouteData.Values["id"]!.ToString() != User.FindFirst(CustomClaims.EmployeeId)!.Value)
+            {
+                    <form method="post" asp-page-handler="DeleteEmployee">
 
-            </form>
+                        <div class="col-4">
+                            <button class="btn btn-danger" type="submit">Delete Employee</button>
+                        </div>
+                        <input type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly />
+
+                    </form>
+            }
         }
 
     </div>

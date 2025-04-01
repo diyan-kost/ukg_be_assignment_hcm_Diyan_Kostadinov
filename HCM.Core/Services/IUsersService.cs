@@ -14,7 +14,7 @@ namespace HCM.Core.Services
 
         Task UpdateUserAsync(UpdateUser model);
 
-        Task DeleteUserAsync(DeleteUser model);
+        Task DeleteUserAsync(string username);
 
         Task<string> GetUserRoleByUsernameAsync(string username);
     }

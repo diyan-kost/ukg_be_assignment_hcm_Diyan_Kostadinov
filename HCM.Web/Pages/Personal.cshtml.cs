@@ -41,11 +41,14 @@ namespace HCM.Web.Pages
         [BindProperty]
         public UpdateUser UpdateUser { get; set; }
 
-        [BindProperty]
-        public DeleteUser DeleteUser { get; set; }
+        //[BindProperty]
+        //public DeleteUser DeleteUser { get; set; }
 
         [BindProperty]
         public CreateUser CreateUser { get; set; }
+
+        [BindProperty]
+        public string Username { get; set; }
 
         public IEnumerable<RoleInfo> Roles { get; set; }
 
@@ -92,9 +95,11 @@ namespace HCM.Web.Pages
 
         public async Task OnPostDeleteUser()
         {
-            await _usersService.DeleteUserAsync(DeleteUser);
+            int id = Convert.ToInt32(HttpContext.Request.RouteValues["id"]);
 
-            await LoadEmployeeDetails(DeleteUser.EmployeeId);
+            await _usersService.DeleteUserAsync(Username);
+
+            await LoadEmployeeDetails(id);
         }
 
         public async Task OnPostCreateUser()
@@ -119,9 +124,9 @@ namespace HCM.Web.Pages
             var loggedEmployeeId = Convert.ToInt32(identity!.FindFirst(CustomClaims.EmployeeId)!.Value);
             var loggedEmployeeRole = identity.FindFirst(ClaimTypes.Role)!.Value;
 
-            // Reload data after update
             var employeeDetails = await _employeesService.GetEmployeeDetailsById(id);
 
+            // Check if user is part of manager's team
             if (checkManagerId && loggedEmployeeId != employeeDetails.ManagerId)
             {
                 throw new PermissionDeniedException("Permission denied");

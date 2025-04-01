@@ -105,9 +105,9 @@ namespace HCM.Core.Services.Implementations
             await _usersRepository.SaveTrackingChangesAsync();
         }
 
-        public async Task DeleteUserAsync(DeleteUser model)
+        public async Task DeleteUserAsync(string username)
         {
-            var user = await _usersRepository.GetByUsernameAsync(model.Username);
+            var user = await _usersRepository.GetByUsernameAsync(username);
 
             if (user == null)
                 throw new EntityNotFoundException("User not found");
