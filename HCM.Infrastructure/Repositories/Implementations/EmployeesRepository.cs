@@ -56,19 +56,19 @@ namespace HCM.Infrastructure.Repositories.Implementations
             return employees;
         }
 
-        public async Task<bool> ExistsByPhoneNumber(string phoneNumber)
+        public async Task<bool> ExistsByPhoneNumberAsync(string phoneNumber)
         {
             return await _dbContext.Employees
                 .AnyAsync(e => e.PhoneNumber == phoneNumber);
         }
 
-        public async Task<bool> ExistsByEmail(string email)
+        public async Task<bool> ExistsByEmailAsync(string email)
         {
             return await _dbContext.Employees
                 .AnyAsync(e => e.Email == email);
         }
 
-        public async Task<bool> ExistsByNationalIdNumber(string nationalIdNumber)
+        public async Task<bool> ExistsByNationalIdNumberAsync(string nationalIdNumber)
         {
             return await _dbContext.Employees
                 .AnyAsync(e => e.NationalIdNumber == nationalIdNumber);

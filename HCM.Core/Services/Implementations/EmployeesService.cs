@@ -21,7 +21,7 @@ namespace HCM.Core.Services.Implementations
             _usersRepository = usersRepository;
         }
 
-        public async Task<EmployeeDetails> GetEmployeeDetailsById(int id)
+        public async Task<EmployeeDetails> GetEmployeeDetailsByIdAsync(int id)
         {
             var employee = await _employeesRepository.GetByIdAsync(id);
 
@@ -37,7 +37,7 @@ namespace HCM.Core.Services.Implementations
             return employeeDetails;
         }
 
-        public async Task<IEnumerable<EmployeeBasicInfo>> GetEmployeesByManagerId(int managerId)
+        public async Task<IEnumerable<EmployeeBasicInfo>> GetEmployeesByManagerIdAsync(int managerId)
         {
             var employees = await _employeesRepository.GetByManagerIdAsync(managerId);
 
@@ -46,7 +46,7 @@ namespace HCM.Core.Services.Implementations
             return employeeBasicInfoList;
         }
 
-        public async Task<IEnumerable<EmployeeBasicInfo>> GetAllEmployees()
+        public async Task<IEnumerable<EmployeeBasicInfo>> GetAllEmployeesAsync()
         {
             var employees = await _employeesRepository.GetAllAsync();
 
@@ -68,21 +68,21 @@ namespace HCM.Core.Services.Implementations
 
             if (model.PhoneNumber != employee.PhoneNumber)
             {
-                var isPhoneNumberTaken = await _employeesRepository.ExistsByPhoneNumber(model.PhoneNumber);
+                var isPhoneNumberTaken = await _employeesRepository.ExistsByPhoneNumberAsync(model.PhoneNumber);
                 if (isPhoneNumberTaken)
                     throw new InvalidInputDataException("Phone number is already taken!");
             }
 
             if (model.Email != employee.Email)
             {
-                var isEmailTaken = await _employeesRepository.ExistsByEmail(model.Email);
+                var isEmailTaken = await _employeesRepository.ExistsByEmailAsync(model.Email);
                 if (isEmailTaken)
                     throw new InvalidInputDataException("Email is already taken!");
             }
                 
             if (model.NationalIdNumber != employee.NationalIdNumber)
             {
-                var isNationalIdTaken = await _employeesRepository.ExistsByNationalIdNumber(model.NationalIdNumber);
+                var isNationalIdTaken = await _employeesRepository.ExistsByNationalIdNumberAsync(model.NationalIdNumber);
                 if (isNationalIdTaken)
                     throw new InvalidInputDataException("National ID number is already taken!");
             }
@@ -104,15 +104,15 @@ namespace HCM.Core.Services.Implementations
             var validator = new AddNewEmployeeValidator();
             await validator.ValidateAndThrowAsync(model);
 
-            var isPhoneNumberTaken = await _employeesRepository.ExistsByPhoneNumber(model.PhoneNumber);
+            var isPhoneNumberTaken = await _employeesRepository.ExistsByPhoneNumberAsync(model.PhoneNumber);
             if (isPhoneNumberTaken)
                 throw new InvalidInputDataException("Phone number is already taken!");
 
-            var isEmailTaken = await _employeesRepository.ExistsByEmail(model.Email);
+            var isEmailTaken = await _employeesRepository.ExistsByEmailAsync(model.Email);
             if (isEmailTaken)
                 throw new InvalidInputDataException("Email is already taken!");
 
-            var isNationalIdTaken = await _employeesRepository.ExistsByNationalIdNumber(model.NationalIdNumber);
+            var isNationalIdTaken = await _employeesRepository.ExistsByNationalIdNumberAsync(model.NationalIdNumber);
             if (isNationalIdTaken)
                 throw new InvalidInputDataException("National ID number is already taken!");
 

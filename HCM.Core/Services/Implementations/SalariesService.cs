@@ -15,7 +15,7 @@ namespace HCM.Core.Services.Implementations
             _salariesRepository = salariesRepository;
         }
 
-        public async Task AddNewSalary(AddSalaryModel model)
+        public async Task AddNewSalaryAsync(AddSalaryModel model)
         {
             var validator = new SalaryValidator();
 

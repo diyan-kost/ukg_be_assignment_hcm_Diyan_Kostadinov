@@ -4,11 +4,11 @@ namespace HCM.Core.Services
 {
     public interface IEmployeesService
     {
-        Task<EmployeeDetails> GetEmployeeDetailsById(int id);
+        Task<EmployeeDetails> GetEmployeeDetailsByIdAsync(int id);
 
-        Task<IEnumerable<EmployeeBasicInfo>> GetEmployeesByManagerId(int managerId);
+        Task<IEnumerable<EmployeeBasicInfo>> GetEmployeesByManagerIdAsync(int managerId);
 
-        Task<IEnumerable<EmployeeBasicInfo>> GetAllEmployees();
+        Task<IEnumerable<EmployeeBasicInfo>> GetAllEmployeesAsync();
 
         Task UpdateEmployeeAsync(UpdateEmployeeModel model);
 

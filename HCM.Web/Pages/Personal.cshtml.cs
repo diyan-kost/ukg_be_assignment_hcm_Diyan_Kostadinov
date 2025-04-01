@@ -81,7 +81,7 @@ namespace HCM.Web.Pages
 
         public async Task OnPostAddSalary()
         {
-            await _salariesService.AddNewSalary(AddSalaryModel);
+            await _salariesService.AddNewSalaryAsync(AddSalaryModel);
 
             await LoadEmployeeDetails(AddSalaryModel.EmployeeId);
         }
@@ -124,7 +124,7 @@ namespace HCM.Web.Pages
             var loggedEmployeeId = Convert.ToInt32(identity!.FindFirst(CustomClaims.EmployeeId)!.Value);
             var loggedEmployeeRole = identity.FindFirst(ClaimTypes.Role)!.Value;
 
-            var employeeDetails = await _employeesService.GetEmployeeDetailsById(id);
+            var employeeDetails = await _employeesService.GetEmployeeDetailsByIdAsync(id);
 
             // Check if user is part of manager's team
             if (checkManagerId && loggedEmployeeId != employeeDetails.ManagerId)

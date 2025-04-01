@@ -36,7 +36,7 @@ namespace HCM.Web.Pages
 
         private async Task LoadEmployees()
         {
-            EmployeeList = (await _employeesService.GetAllEmployees()).ToList();
+            EmployeeList = (await _employeesService.GetAllEmployeesAsync()).ToList();
         }
     }
 }

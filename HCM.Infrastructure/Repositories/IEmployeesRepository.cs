@@ -10,11 +10,11 @@ namespace HCM.Infrastructure.Repositories
 
         Task<IEnumerable<Employee>> GetAllAsync();
 
-        Task<bool> ExistsByPhoneNumber(string phoneNumber);
+        Task<bool> ExistsByPhoneNumberAsync(string phoneNumber);
 
-        Task<bool> ExistsByEmail(string email);
+        Task<bool> ExistsByEmailAsync(string email);
 
-        Task<bool> ExistsByNationalIdNumber(string nationalIdNumber);
+        Task<bool> ExistsByNationalIdNumberAsync(string nationalIdNumber);
 
         Task<Employee> AddNewEmployeeAsync(Employee employee);
 

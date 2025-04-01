@@ -27,12 +27,12 @@ namespace HCM.Web.Pages
 
             if (role == "Manager")
             {
-                var employees = await _employeesService.GetEmployeesByManagerId(id);
+                var employees = await _employeesService.GetEmployeesByManagerIdAsync(id);
                 Employees = employees.ToList();
             }
             else
             {
-                var employees = await _employeesService.GetAllEmployees();
+                var employees = await _employeesService.GetAllEmployeesAsync();
                 Employees = employees.ToList();
             }
 
