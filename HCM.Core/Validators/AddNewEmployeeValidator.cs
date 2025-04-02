@@ -14,8 +14,8 @@ namespace HCM.Core.Validators
                 .MaximumLength(255);
 
             RuleFor(e => e.MiddleName)
-                            .MinimumLength(1).When(e => !string.IsNullOrEmpty(e.MiddleName))
-                            .MaximumLength(255).When(e => !string.IsNullOrEmpty(e.MiddleName));
+                .MinimumLength(1).When(e => !string.IsNullOrEmpty(e.MiddleName))
+                .MaximumLength(255).When(e => !string.IsNullOrEmpty(e.MiddleName));
 
             RuleFor(e => e.LastName)
                 .MinimumLength(1).When(e => !string.IsNullOrEmpty(e.LastName))

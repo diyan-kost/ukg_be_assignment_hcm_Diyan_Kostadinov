@@ -41,5 +41,25 @@ namespace HCM.Core.Helpers
             return principal;
         }
 
+        public static bool IsValidPassword(string password)
+        {
+            if (password.Contains(" "))
+                return false;
+
+            if (password.All(c => Char.IsDigit(c)))
+                return false;
+
+            if (password.All(c => !Char.IsDigit(c)))
+                return false;
+
+            if (password.All(c => Char.IsUpper(c)))
+                return false;
+
+            if (password.All(c => Char.IsLower(c)))
+                return false;
+
+            return true;
+        }
+
     }
 }

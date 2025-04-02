@@ -1,4 +1,5 @@
 ﻿using HCM.Core.Models.User;
+using HCM.Infrastructure.Entities;
 
 namespace HCM.Core.Services
 {

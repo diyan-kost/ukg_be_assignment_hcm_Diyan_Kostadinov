@@ -4,6 +4,7 @@ using HCM.Core.Helpers;
 using HCM.Core.Mappers;
 using HCM.Core.Models.User;
 using HCM.Core.Validators;
+using HCM.Infrastructure.Entities;
 using HCM.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -26,6 +27,9 @@ namespace HCM.Core.Services.Implementations
 
         public async Task<int> LoginAsync(LoginUserModel loginUserModel)
         {
+            var validator = new LoginUserModelValidator();
+            await validator.ValidateAndThrowAsync(loginUserModel);
+
             var user = await _usersRepository.GetByUsernameAsync(loginUserModel.Username);
 
             if (user is null)
@@ -79,6 +83,9 @@ namespace HCM.Core.Services.Implementations
 
         public async Task UpdateUserAsync(UpdateUser model)
         {
+            var validator = new UpdateUserValidator();
+            await validator.ValidateAndThrowAsync(model);
+
             var user = await _usersRepository.GetByUsernameAsync(model.Username);
 
             if (user == null)

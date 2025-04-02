@@ -12,13 +12,11 @@ namespace HCM.Core.Services.Implementations
     {
         private readonly IEmployeesRepository _employeesRepository;
         private readonly ISalariesRepository _salariesRepository; 
-        private readonly IUsersRepository _usersRepository;
 
-        public EmployeesService(IEmployeesRepository employeesRepository, ISalariesRepository salariesRepository, IUsersRepository usersRepository)
+        public EmployeesService(IEmployeesRepository employeesRepository, ISalariesRepository salariesRepository)
         {
             _employeesRepository = employeesRepository;
             _salariesRepository = salariesRepository;
-            _usersRepository = usersRepository;
         }
 
         public async Task<EmployeeDetails> GetEmployeeDetailsByIdAsync(int id)
@@ -128,6 +126,7 @@ namespace HCM.Core.Services.Implementations
         public async Task DeleteEmployeeAsync(int id)
         {
             var employee = await _employeesRepository.GetByIdAsync(id, false);
+
             if (employee == null)
                 throw new EntityNotFoundException("Employee not found");           
 
