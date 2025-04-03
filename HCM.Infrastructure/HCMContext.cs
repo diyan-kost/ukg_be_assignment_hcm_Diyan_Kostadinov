@@ -12,20 +12,9 @@ namespace HCM.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
             modelBuilder.Entity<Salary>()
-                .HasOne(c => c.Employee)
-                .WithMany(p => p.Salaries)
-                .HasForeignKey(c => c.EmployeeId)
-                .OnDelete(DeleteBehavior.Cascade); // Cascade delete
-
-
-            modelBuilder.Entity<User>()
-                .HasOne(c => c.Employee)
-                .WithMany(p => p.Users)
-                .HasForeignKey(c => c.EmployeeId)
-                .OnDelete(DeleteBehavior.Cascade); // Cascade delete
+                .Property(s => s.Amount)
+                .HasColumnType("decimal(10,2)"); 
         }
 
         public DbSet<Role> Roles { get; set; }

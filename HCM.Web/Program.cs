@@ -31,7 +31,8 @@ namespace HCM.Web
 
             builder.Services.AddDbContext<HCMContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("HCMConnectionString"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("HCMConnectionString"),
+                    options => options.MigrationsAssembly("HCM.Infrastructure"));
             });
 
             builder.Services.AddApplicationServices();
@@ -54,6 +55,7 @@ namespace HCM.Web
                 var services = scope.ServiceProvider;
                 var dbContext = services.GetRequiredService<HCMContext>();
 
+                dbContext.Database.Migrate();
                 TestData.InitializeDbWithTestData(dbContext, true);
             }
 
