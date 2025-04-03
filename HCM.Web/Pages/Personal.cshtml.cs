@@ -5,6 +5,7 @@ using HCM.Core.Models.Role;
 using HCM.Core.Models.Salary;
 using HCM.Core.Models.User;
 using HCM.Core.Services;
+using HCM.Web.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,7 +13,7 @@ using System.Security.Claims;
 
 namespace HCM.Web.Pages
 {
-    [Authorize(Roles = "Employee,Manager,HR Admin")]
+    [Authorize(Roles = $"{LoginRoles.EMPLOYEE},{LoginRoles.MANAGER},{LoginRoles.HR_ADMIN}")]
     public class PersonalModel : PageModel
     {
         private readonly IEmployeesService _employeesService;
@@ -55,9 +56,9 @@ namespace HCM.Web.Pages
             var role = identity.FindFirst(ClaimTypes.Role)!.Value;
 
             var checkManagerId = false;
-            if (loggedEmployeeId != id && role != "HR Admin")
+            if (loggedEmployeeId != id && role != LoginRoles.HR_ADMIN)
             {
-                if (role == "Employee")
+                if (role == LoginRoles.EMPLOYEE)
                 {
                     throw new PermissionDeniedException("Permission denied");
                 }
@@ -136,14 +137,14 @@ namespace HCM.Web.Pages
                 var username = await _usersService.GetUsernameByEmployeeIdAsync(id);
                 EmployeeDetails.Username = username;
                 EmployeeDetails.Role = null;
-                if (loggedEmployeeRole == "HR Admin" && username != null)
+                if (loggedEmployeeRole == LoginRoles.HR_ADMIN && username != null)
                 {
                     var role = await _usersService.GetUserRoleByUsernameAsync(EmployeeDetails.Username!);
                     EmployeeDetails.Role = role;
                 }
             }
 
-            if (loggedEmployeeRole == "HR Admin")
+            if (loggedEmployeeRole == LoginRoles.HR_ADMIN)
             {
                 Roles = await _rolesService.GetRolesAsync();
             }

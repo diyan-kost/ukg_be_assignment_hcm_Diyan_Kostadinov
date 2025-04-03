@@ -1,12 +1,13 @@
 using HCM.Core.Models.Employee;
 using HCM.Core.Services;
+using HCM.Web.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HCM.Web.Pages
 {
-    [Authorize(Roles = "HR Admin")]
+    [Authorize(Roles = LoginRoles.HR_ADMIN)]
     public class AddEmployeeModel : PageModel
     {
         private readonly IEmployeesService _employeesService;

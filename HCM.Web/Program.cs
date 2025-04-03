@@ -28,13 +28,6 @@ namespace HCM.Web
 
             builder.Services.AddHttpContextAccessor(); 
 
-            builder.Services.AddAuthorization(c =>
-            {
-                c.AddPolicy("Employee", p => p.RequireRole("Employee"));
-                c.AddPolicy("Manager", p => p.RequireRole("Manager"));
-                c.AddPolicy("HRAdmin", p => p.RequireRole("HRAdmin"));
-            });
-
             builder.Services.AddDbContext<HCMContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("HCMConnectionString"));

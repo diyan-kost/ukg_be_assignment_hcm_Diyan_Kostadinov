@@ -3,6 +3,7 @@
 @using HCM.Core.Helpers
 @using HCM.Core.Models.Employee;
 @using System.Security.Claims
+@using HCM.Web.Common
 
 @model PersonalModel
 
@@ -45,7 +46,7 @@
 
                 <div class="col-12">
                     <label for="email" class="form-label">Email</label>
-                    @if (User.IsInRole("HR Admin"))
+                    @if (User.IsInRole(LoginRoles.HR_ADMIN))
                     {
                         <input asp-for="UpdateEmployee.Email" type="email" class="form-control" id="email" placeholder="you@example.com" value="@details.Email" required>
                     }
@@ -81,7 +82,7 @@
 
                 <div class="col-4">
                     <label for="nationalId" class="form-label">National ID</label>
-                    @if (User.IsInRole("HR Admin"))
+                    @if (User.IsInRole(LoginRoles.HR_ADMIN))
                     {
                         <input asp-for="UpdateEmployee.NationalIdNumber" type="text" class="form-control" id="nationalId" placeholder="9000000000" value="@details.NationalIdNumber">
                     }
@@ -112,10 +113,10 @@
             <input asp-for="UpdateEmployee.Id" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly/>
         </form>
 
-        <hr class="my-4"> 
+        <hr class="my-4">
 
 
-        @if (User.IsInRole("HR Admin"))
+        @if (User.IsInRole(LoginRoles.HR_ADMIN))
         {
             if(details.Username == null)
             {
@@ -143,9 +144,9 @@
                     <div class="col-md-5">
                         <label for="role" class="form-label">Role</label>
                         <select asp-for="CreateUser.Role" class="form-select" id="role" required>
-                            <option value="Employee" selected>Employee</option>
-                            <option value="Manager">Manager</option>
-                            <option value="HR Admin">HR Admin</option>
+                            <option value="@LoginRoles.EMPLOYEE" selected>@LoginRoles.EMPLOYEE</option>
+                            <option value="@LoginRoles.MANAGER">@LoginRoles.MANAGER</option>
+                            <option value="@LoginRoles.HR_ADMIN">@LoginRoles.HR_ADMIN</option>
                         </select>
                         <div class="invalid-feedback">
                             Please select a valid role.
@@ -289,7 +290,7 @@
 
         <hr class="my-4">
 
-        @if (User.IsInRole("HR Admin"))
+        @if (User.IsInRole(LoginRoles.HR_ADMIN))
         {
             
             <form method="post" asp-page-handler="AddSalary">

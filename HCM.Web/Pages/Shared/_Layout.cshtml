@@ -1,5 +1,6 @@
 ﻿@using System.Security.Claims
 @using HCM.Core.Helpers
+@using HCM.Web.Common
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,18 +37,18 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Personal"
-                                   asp-route-id="@((User.Identity as ClaimsIdentity).FindFirst(CustomClaims.EmployeeId).Value)">Personal Data</a>
+                                   asp-route-id="@((User.Identity as ClaimsIdentity)!.FindFirst(CustomClaims.EmployeeId)!.Value)">Personal Data</a>
                             </li>
                         }
 
-                        @if (User.IsInRole("Manager") || User.IsInRole("HR Admin"))
+                        @if (User.IsInRole(LoginRoles.MANAGER) || User.IsInRole(LoginRoles.HR_ADMIN))
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Employees
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    @if (User.IsInRole("HR Admin"))
+                                    @if (User.IsInRole(LoginRoles.HR_ADMIN))
                                     {
                                         <a class="dropdown-item text-dark" asp-page="/AddEmployee">Add</a>
                                     }
