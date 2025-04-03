@@ -10,7 +10,6 @@ The application currently supports three kinds of users - Employees, Managers an
 ## TODO
 Due to time constraints some things couldn't be finished in time. Further development of the app would include:
 
-* Implement Entity Framework migrations
 * More and fuller unit and integration tests
 * More functionalities like being able to request paid leave
 * Front end and user experience improvements
