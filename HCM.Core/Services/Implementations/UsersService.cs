@@ -90,7 +90,6 @@ namespace HCM.Core.Services.Implementations
             if (user == null)
                 throw new EntityNotFoundException("User not found");
 
-            int roleId = user.RoleId;
             if (model.Role != null)
             {
                 var role = await _rolesRepository.GetByIdAsync(model.Role.Value);
@@ -98,7 +97,7 @@ namespace HCM.Core.Services.Implementations
                 if (role == null)
                     throw new EntityNotFoundException("Role not found");
 
-                roleId = role.Id;
+                user.RoleId = role.Id;
             }
 
             if (model.Password != null)
@@ -106,9 +105,11 @@ namespace HCM.Core.Services.Implementations
                 var newPasswordHash = LoginHelper.ComputeSHA256Hash(model.Password);
                 user.Password_Hash = newPasswordHash;
             }
-            user.RoleId = roleId;
-
-            await _usersRepository.SaveTrackingChangesAsync();
+            
+            if (model.Role != null || model.Password != null)
+            {
+                await _usersRepository.SaveTrackingChangesAsync();
+            }
         }
 
         public async Task DeleteUserAsync(string username)

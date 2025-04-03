@@ -19,12 +19,7 @@ namespace HCM.Web.Pages
 
         public void OnGet()
         {
-            string? err = HttpContext.Session.GetString("ErrorMessage");
-            if (!string.IsNullOrEmpty(err))
-            {
-                TempData["ErrorMessage"] = err!;
-                HttpContext.Session.Remove("ErrorMessage");
-            }
+
         }
 
         public async Task<IActionResult> OnPostLoginAsync() 

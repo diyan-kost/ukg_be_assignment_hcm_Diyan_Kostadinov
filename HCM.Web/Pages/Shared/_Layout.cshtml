@@ -1,6 +1,17 @@
 ﻿@using System.Security.Claims
 @using HCM.Core.Helpers
 @using HCM.Web.Common
+
+
+@{
+    string? err = Context.Session.GetString("ErrorMessage");
+    if (!string.IsNullOrEmpty(err))
+    {
+        Context.Session.Remove("ErrorMessage");
+    }
+
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,10 +83,10 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @if (TempData["ErrorMessage"] != null)
+            @if (!string.IsNullOrEmpty(err))
             {
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Error! </strong> @TempData["ErrorMessage"]
+                    <strong>Error! </strong> @err
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             }
