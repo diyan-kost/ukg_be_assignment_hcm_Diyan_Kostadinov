@@ -21,7 +21,7 @@
 
                 <div class="col-sm-4">
                     <label for="firstName" class="form-label">First name</label>
-                    <input asp-for="UpdateEmployeeModel.FirstName" type="text" class="form-control" id="firstName" placeholder="" value="@details.FirstName" required>
+                    <input asp-for="UpdateEmployee.FirstName" type="text" class="form-control" id="firstName" placeholder="" value="@details.FirstName" required>
                     <div class="invalid-feedback">
                         Valid first name is required.
                     </div>
@@ -29,7 +29,7 @@
 
                 <div class="col-sm-4">
                     <label for="middleName" class="form-label">Middle name <span class="text-body-secondary">(Optional)</span></label>
-                    <input asp-for="UpdateEmployeeModel.MiddleName" type="text" class="form-control" id="middleName" placeholder="" value="@details.MiddleName">
+                    <input asp-for="UpdateEmployee.MiddleName" type="text" class="form-control" id="middleName" placeholder="" value="@details.MiddleName">
                     <div class="invalid-feedback">
                         Valid middle name is required.
                     </div>
@@ -37,7 +37,7 @@
 
                 <div class="col-sm-4">
                     <label for="lastName" class="form-label">Last name <span class="text-body-secondary">(Optional)</span></label>
-                    <input asp-for="UpdateEmployeeModel.LastName" type="text" class="form-control" id="lastName" placeholder="" value="@details.LastName">
+                    <input asp-for="UpdateEmployee.LastName" type="text" class="form-control" id="lastName" placeholder="" value="@details.LastName">
                     <div class="invalid-feedback">
                         Valid last name is required.
                     </div>
@@ -47,11 +47,11 @@
                     <label for="email" class="form-label">Email</label>
                     @if (User.IsInRole("HR Admin"))
                     {
-                        <input asp-for="UpdateEmployeeModel.Email" type="email" class="form-control" id="email" placeholder="you@example.com" value="@details.Email" required>
+                        <input asp-for="UpdateEmployee.Email" type="email" class="form-control" id="email" placeholder="you@example.com" value="@details.Email" required>
                     }
                     else
                     {
-                        <input asp-for="UpdateEmployeeModel.Email" type="email" class="form-control" id="email" placeholder="you@example.com" value="@details.Email" required readonly>
+                        <input asp-for="UpdateEmployee.Email" type="email" class="form-control" id="email" placeholder="you@example.com" value="@details.Email" required readonly>
                     }
                     <div class="invalid-feedback">
                         Please enter a valid email address.
@@ -60,7 +60,7 @@
 
                 <div class="col-12">
                     <label for="phoneNumber" class="form-label">Phone Number</label>
-                    <input asp-for="UpdateEmployeeModel.PhoneNumber" type="text" class="form-control" id="phoneNumber" placeholder="+359555555555" value="@details.PhoneNumber" required>
+                    <input asp-for="UpdateEmployee.PhoneNumber" type="text" class="form-control" id="phoneNumber" placeholder="+359555555555" value="@details.PhoneNumber" required>
                     <div class="invalid-feedback">
                         Please enter a valid phone number.
                     </div>
@@ -68,7 +68,7 @@
 
                 <div class="col-12">
                     <label for="address" class="form-label">Address</label>
-                    <input asp-for="UpdateEmployeeModel.Address" type="text" class="form-control" id="address" placeholder="1234 Main St" value="@details.CurrentAddress" required>
+                    <input asp-for="UpdateEmployee.Address" type="text" class="form-control" id="address" placeholder="1234 Main St" value="@details.CurrentAddress" required>
                     <div class="invalid-feedback">
                         Please enter your current address.
                     </div>
@@ -83,11 +83,11 @@
                     <label for="nationalId" class="form-label">National ID</label>
                     @if (User.IsInRole("HR Admin"))
                     {
-                        <input asp-for="UpdateEmployeeModel.NationalIdNumber" type="text" class="form-control" id="nationalId" placeholder="9000000000" value="@details.NationalIdNumber">
+                        <input asp-for="UpdateEmployee.NationalIdNumber" type="text" class="form-control" id="nationalId" placeholder="9000000000" value="@details.NationalIdNumber">
                     }
                     else
                     {
-                        <input asp-for="UpdateEmployeeModel.NationalIdNumber" type="text" class="form-control" id="nationalId" placeholder="9000000000" value="@details.NationalIdNumber" readonly>
+                        <input asp-for="UpdateEmployee.NationalIdNumber" type="text" class="form-control" id="nationalId" placeholder="9000000000" value="@details.NationalIdNumber" readonly>
                     }
                 </div>
 
@@ -108,8 +108,8 @@
                 <button class="btn btn-primary" type="submit">Save Changes</button>
             </div>
 
-            <input asp-for="UpdateEmployeeModel.ManagerId" type="text" value="@details.ManagerId" style="display:none;" readonly/>
-            <input asp-for="UpdateEmployeeModel.Id" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly/>
+            <input asp-for="UpdateEmployee.ManagerId" type="text" value="@details.ManagerId" style="display:none;" readonly/>
+            <input asp-for="UpdateEmployee.Id" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly/>
         </form>
 
         <hr class="my-4"> 
@@ -317,20 +317,20 @@
 
                 <div class="col-4">
                     <label for="salaryAmount" class="form-label">New Salary</label>
-                    <input asp-for="AddSalaryModel.Amount" type="number" min="0" step="0.01" class="form-control" id="salaryAmount" placeholder="1234" value="">
+                    <input asp-for="AddSalary.Amount" type="number" min="0" step="0.01" class="form-control" id="salaryAmount" placeholder="1234" value="">
                 </div>
 
                 <div class="col-4">
                     <label for="effectiveDate" class="form-label">Effective Date</label>
-                    <input asp-for="AddSalaryModel.EffectiveDate" type="date" class="form-control" id="effectiveDate" value="">
+                    <input asp-for="AddSalary.EffectiveDate" type="date" class="form-control" id="effectiveDate" value="">
                 </div>
 
                 <div class="col-12">
                     <label for="note" class="form-label">Note <span class="text-body-secondary">(Optional)</span></label>
-                    <input asp-for="AddSalaryModel.Note" type="text" class="form-control" id="note" value="">
+                    <input asp-for="AddSalary.Note" type="text" class="form-control" id="note" value="">
                 </div>
 
-                <input asp-for="AddSalaryModel.EmployeeId" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly />
+                <input asp-for="AddSalary.EmployeeId" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly />
 
                 <br />
                 <div class="col-4">

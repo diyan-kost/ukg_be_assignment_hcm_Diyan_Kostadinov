@@ -5,7 +5,6 @@ using HCM.Core.Models.Role;
 using HCM.Core.Models.Salary;
 using HCM.Core.Models.User;
 using HCM.Core.Services;
-using HCM.Infrastructure.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -33,16 +32,13 @@ namespace HCM.Web.Pages
         public EmployeeDetailsDto? EmployeeDetails { get; set; }
 
         [BindProperty]
-        public UpdateEmployeeDto UpdateEmployeeModel { get; set; }
+        public UpdateEmployeeDto UpdateEmployee { get; set; }
 
         [BindProperty]
-        public AddSalaryDto AddSalaryModel { get; set; }
+        public AddSalaryDto AddSalary { get; set; }
 
         [BindProperty]
         public UpdateUserDto UpdateUser { get; set; }
-
-        //[BindProperty]
-        //public DeleteUser DeleteUser { get; set; }
 
         [BindProperty]
         public CreateUserDto CreateUser { get; set; }
@@ -55,11 +51,11 @@ namespace HCM.Web.Pages
         public async Task OnGet(int id)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var emplId = Convert.ToInt32(identity!.FindFirst(CustomClaims.EmployeeId)!.Value);
-            var role = identity.FindFirst(ClaimTypes.Role).Value;
+            var loggedEmployeeId = Convert.ToInt32(identity!.FindFirst(CustomClaims.EmployeeId)!.Value);
+            var role = identity.FindFirst(ClaimTypes.Role)!.Value;
 
             var checkManagerId = false;
-            if (emplId != id && role != "HR Admin")
+            if (loggedEmployeeId != id && role != "HR Admin")
             {
                 if (role == "Employee")
                 {
@@ -74,16 +70,16 @@ namespace HCM.Web.Pages
 
         public async Task OnPostUpdateEmployeeAsync()
         {
-            await _employeesService.UpdateEmployeeAsync(UpdateEmployeeModel);
+            await _employeesService.UpdateEmployeeAsync(UpdateEmployee);
 
-            await LoadEmployeeDetails(UpdateEmployeeModel.Id);
+            await LoadEmployeeDetails(UpdateEmployee.Id);
         }
 
         public async Task OnPostAddSalary()
         {
-            await _salariesService.AddNewSalaryAsync(AddSalaryModel);
+            await _salariesService.AddNewSalaryAsync(AddSalary);
 
-            await LoadEmployeeDetails(AddSalaryModel.EmployeeId);
+            await LoadEmployeeDetails(AddSalary.EmployeeId);
         }
 
         public async Task OnPostUpdateUser()

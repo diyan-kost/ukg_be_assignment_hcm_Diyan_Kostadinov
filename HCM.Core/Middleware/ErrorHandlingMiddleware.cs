@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using HCM.Core.Exceptions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace HCM.Core.Middleware
@@ -27,7 +26,7 @@ namespace HCM.Core.Middleware
             {
                 _logger.LogError(ex, "An error occurred.");
 
-                string errorMessage = string.Empty;
+                string errorMessage;
 
                 if (ex is BaseCustomException)
                     errorMessage = ex.Message ?? "An error occurred! Please try again or contact us!";

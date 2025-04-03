@@ -4,7 +4,6 @@ using HCM.Core.Services.Implementations;
 using HCM.Infrastructure;
 using HCM.Infrastructure.Repositories;
 using HCM.Infrastructure.Repositories.Implementations;
-using HCM.Web.Controllers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +15,7 @@ namespace HCM.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            
             builder.Services.AddRazorPages();
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -41,23 +40,7 @@ namespace HCM.Web
                 options.UseSqlServer(builder.Configuration.GetConnectionString("HCMConnectionString"));
             });
 
-            // add services/controllers
-            {
-                builder.Services.AddScoped<IUsersRepository, UsersRepository>();
-                builder.Services.AddScoped<IUsersService, UsersService>();
-
-
-                builder.Services.AddScoped<IEmployeesService, EmployeesService>();
-                builder.Services.AddScoped<IEmployeesRepository, EmployeesRepository>();
-
-                builder.Services.AddScoped<ISalariesService, SalariesService>();
-                builder.Services.AddScoped<ISalariesRepository, SalariesRepository>();
-
-                builder.Services.AddScoped<IRolesRepository, RolesRepository>();
-                builder.Services.AddScoped<IRolesService, RolesService>();
-
-                builder.Services.AddScoped<UsersController>();
-            }
+            builder.Services.AddApplicationServices();
 
             builder.Services.AddSession();
 
@@ -83,10 +66,7 @@ namespace HCM.Web
 
             app.MapRazorPages();
 
-            app.MapControllers();
-
             app.UseMiddleware<ErrorHandlingMiddleware>();
-
 
             app.Run();
         }

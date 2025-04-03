@@ -7,16 +7,13 @@ namespace HCM.Web.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
-
         private readonly IUsersService _usersService;
 
         [BindProperty]
         public LoginUserDto LoginUserModel { get; set; }
 
-        public IndexModel(ILogger<IndexModel> logger, IUsersService usersService)
+        public IndexModel(IUsersService usersService)
         {
-            _logger = logger;
             _usersService = usersService;
         }
 
