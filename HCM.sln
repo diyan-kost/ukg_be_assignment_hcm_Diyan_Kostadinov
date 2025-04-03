@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HCM.Core", "HCM.Core\HCM.Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HCM.Infrastructure", "HCM.Infrastructure\HCM.Infrastructure.csproj", "{E2BF441D-30A6-4DD9-A4D9-060701446135}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HCM.Core.Tests", "HCM.Core.Tests\HCM.Core.Tests.csproj", "{AF42460C-8DF6-421C-A2AA-47841B7552DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HCM.Core.Tests", "HCM.Core.Tests\HCM.Core.Tests.csproj", "{AF42460C-8DF6-421C-A2AA-47841B7552DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HCM.Web.IntegrationTests", "HCM.Web.IntegrationTests\HCM.Web.IntegrationTests.csproj", "{26F1C62B-5EDB-449C-BFBD-90BD82C9C172}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{AF42460C-8DF6-421C-A2AA-47841B7552DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF42460C-8DF6-421C-A2AA-47841B7552DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF42460C-8DF6-421C-A2AA-47841B7552DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26F1C62B-5EDB-449C-BFBD-90BD82C9C172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26F1C62B-5EDB-449C-BFBD-90BD82C9C172}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26F1C62B-5EDB-449C-BFBD-90BD82C9C172}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26F1C62B-5EDB-449C-BFBD-90BD82C9C172}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

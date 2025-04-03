@@ -24,8 +24,7 @@ namespace HCM.Web
                 {
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
                     options.SlidingExpiration = true;
-                    //options.AccessDeniedPath = "/error";
-                    options.LoginPath = "/Users/Login";
+                    options.LoginPath = "/Index";
                 });
 
             builder.Services.AddHttpContextAccessor(); 
