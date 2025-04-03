@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using HCM.Core.Common;
 using HCM.Core.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -39,7 +40,7 @@ namespace HCM.Core.Middleware
                     "/Index" :
                     httpContext.Request.Path.Value;
 
-                httpContext.Session.SetString("ErrorMessage", errorMessage);
+                httpContext.Session.SetString(MessageTypes.ERROR, errorMessage);
                 httpContext.Response.Redirect(redirectTo);
             }
         }

@@ -6,6 +6,7 @@ using HCM.Core.Services;
 using HCM.Core.Services.Implementations;
 using HCM.Infrastructure.Entities;
 using HCM.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Http;
 using Moq;
 using Xunit;
 
@@ -15,6 +16,7 @@ namespace HCM.Core.Tests.Services
     {
         private readonly Mock<IEmployeesRepository> _mockEmployeesRepository;
         private readonly Mock<ISalariesRepository> _mockSalariesRepository;
+        private readonly Mock<IHttpContextAccessor> _mockHttpContextAccessor;
 
         private readonly IEmployeesService _employeesService;
 
@@ -22,8 +24,9 @@ namespace HCM.Core.Tests.Services
         {
             _mockEmployeesRepository = new Mock<IEmployeesRepository>();
             _mockSalariesRepository = new Mock<ISalariesRepository>();
+            _mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
 
-            _employeesService = new EmployeesService(_mockEmployeesRepository.Object, _mockSalariesRepository.Object);
+            _employeesService = new EmployeesService(_mockEmployeesRepository.Object, _mockSalariesRepository.Object, _mockHttpContextAccessor.Object);
         }
 
         [Fact]

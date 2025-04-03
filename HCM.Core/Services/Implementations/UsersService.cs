@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using HCM.Core.Common;
 using HCM.Core.Exceptions;
 using HCM.Core.Helpers;
 using HCM.Core.Mappers;
@@ -32,18 +33,16 @@ namespace HCM.Core.Services.Implementations
             var user = await _usersRepository.GetByUsernameAsync(loginUserModel.Username);
 
             if (user is null)
-                throw new EntityNotFoundException("Username or password is incorrect"); // Not found exception
+                throw new EntityNotFoundException("Username or password is incorrect");
 
             var inputPasswordHash = LoginHelper.ComputeSHA256Hash(loginUserModel.Password);
 
             if (inputPasswordHash != user.Password_Hash)
-                throw new InvalidInputDataException("Username or password is incorrect"); // Bad request exception
+                throw new InvalidInputDataException("Username or password is incorrect");
 
             var userClaims = LoginHelper.GenerateClaims(user.Id, loginUserModel.Username, user.Role.Name, user.EmployeeId);
 
-            var context = _httpContextAccessor.HttpContext;
-
-            await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userClaims);
+            await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userClaims);
 
             return user.EmployeeId;
         }
@@ -78,6 +77,8 @@ namespace HCM.Core.Services.Implementations
             var newUser = model.ToUser(role.Id);
 
             _ = await _usersRepository.CreateUserAsync(newUser);
+
+            _httpContextAccessor.HttpContext.Session.SetString(MessageTypes.SUCCESS, "User created successfully");
         }
 
         public async Task UpdateUserAsync(UpdateUserDto model)
@@ -109,6 +110,8 @@ namespace HCM.Core.Services.Implementations
             if (model.Role != null || model.Password != null)
             {
                 await _usersRepository.SaveTrackingChangesAsync();
+
+                _httpContextAccessor.HttpContext.Session.SetString(MessageTypes.SUCCESS, "User updated successfully");
             }
         }
 
@@ -120,6 +123,8 @@ namespace HCM.Core.Services.Implementations
                 throw new EntityNotFoundException("User not found");
 
             await _usersRepository.DeleteAsync(user);
+
+            _httpContextAccessor.HttpContext.Session.SetString(MessageTypes.SUCCESS, "User deleted successfully");
         }
 
         public async Task<string> GetUserRoleByUsernameAsync(string username)

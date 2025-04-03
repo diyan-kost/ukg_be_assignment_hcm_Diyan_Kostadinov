@@ -1,22 +1,26 @@
 ﻿using FluentValidation;
+using HCM.Core.Common;
 using HCM.Core.Exceptions;
 using HCM.Core.Mappers;
 using HCM.Core.Models.Employee;
 using HCM.Core.Validators;
 using HCM.Infrastructure.Entities;
 using HCM.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Http;
 
 namespace HCM.Core.Services.Implementations
 {
     public class EmployeesService : IEmployeesService
     {
         private readonly IEmployeesRepository _employeesRepository;
-        private readonly ISalariesRepository _salariesRepository; 
+        private readonly ISalariesRepository _salariesRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public EmployeesService(IEmployeesRepository employeesRepository, ISalariesRepository salariesRepository)
+        public EmployeesService(IEmployeesRepository employeesRepository, ISalariesRepository salariesRepository, IHttpContextAccessor httpContextAccessor)
         {
             _employeesRepository = employeesRepository;
             _salariesRepository = salariesRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<EmployeeDetailsDto> GetEmployeeDetailsByIdAsync(int id)
@@ -95,6 +99,8 @@ namespace HCM.Core.Services.Implementations
             employee.NationalIdNumber = model.NationalIdNumber;
 
             await _employeesRepository.SaveTrackingChangesAsync();
+
+            _httpContextAccessor.HttpContext.Session.SetString(MessageTypes.SUCCESS, "Employee updated successfully");
         }
 
         public async Task AddNewEmployeeAsync(AddNewEmployeeDto model)
@@ -121,6 +127,8 @@ namespace HCM.Core.Services.Implementations
             var salary = new Salary() { Amount = model.StartingSalary, EffectiveDate = model.SalaryEffectiveDate, EmployeeId = newEmployee.Id };
 
             await _salariesRepository.AddNewSalaryAsync(salary);
+
+            _httpContextAccessor.HttpContext.Session.SetString(MessageTypes.SUCCESS, "Employee created successfully");
         }
 
         public async Task DeleteEmployeeAsync(int id)
@@ -131,6 +139,8 @@ namespace HCM.Core.Services.Implementations
                 throw new EntityNotFoundException("Employee not found");           
 
             await _employeesRepository.DeleteAsync(employee);
+
+            _httpContextAccessor.HttpContext.Session.SetString(MessageTypes.SUCCESS, "Employee deleted successfully");
         }
     }
 }
