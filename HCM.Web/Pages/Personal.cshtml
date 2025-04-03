@@ -16,32 +16,22 @@
 @if (Model != null && details != null)
 {
     <div>
-        <h4 class="mb-3">Billing address</h4>
-        <form asp-page-handler="UpdateEmployee" class="needs-validation" method="post" novalidate>
+        <form asp-page-handler="UpdateEmployee" method="post">
             <div class="row g-3">
 
                 <div class="col-sm-4">
                     <label for="firstName" class="form-label">First name</label>
                     <input asp-for="UpdateEmployee.FirstName" type="text" class="form-control" id="firstName" placeholder="" value="@details.FirstName" required>
-                    <div class="invalid-feedback">
-                        Valid first name is required.
-                    </div>
                 </div>
 
                 <div class="col-sm-4">
                     <label for="middleName" class="form-label">Middle name <span class="text-body-secondary">(Optional)</span></label>
                     <input asp-for="UpdateEmployee.MiddleName" type="text" class="form-control" id="middleName" placeholder="" value="@details.MiddleName">
-                    <div class="invalid-feedback">
-                        Valid middle name is required.
-                    </div>
                 </div>
 
                 <div class="col-sm-4">
                     <label for="lastName" class="form-label">Last name <span class="text-body-secondary">(Optional)</span></label>
                     <input asp-for="UpdateEmployee.LastName" type="text" class="form-control" id="lastName" placeholder="" value="@details.LastName">
-                    <div class="invalid-feedback">
-                        Valid last name is required.
-                    </div>
                 </div>  
 
                 <div class="col-12">
@@ -54,25 +44,16 @@
                     {
                         <input asp-for="UpdateEmployee.Email" type="email" class="form-control" id="email" placeholder="you@example.com" value="@details.Email" required readonly>
                     }
-                    <div class="invalid-feedback">
-                        Please enter a valid email address.
-                    </div>
                 </div>
 
                 <div class="col-12">
                     <label for="phoneNumber" class="form-label">Phone Number</label>
                     <input asp-for="UpdateEmployee.PhoneNumber" type="text" class="form-control" id="phoneNumber" placeholder="+359555555555" value="@details.PhoneNumber" required>
-                    <div class="invalid-feedback">
-                        Please enter a valid phone number.
-                    </div>
                 </div>
 
                 <div class="col-12">
                     <label for="address" class="form-label">Address</label>
                     <input asp-for="UpdateEmployee.Address" type="text" class="form-control" id="address" placeholder="1234 Main St" value="@details.CurrentAddress" required>
-                    <div class="invalid-feedback">
-                        Please enter your current address.
-                    </div>
                 </div>
 
                 <div class="col-12">
@@ -123,21 +104,15 @@
                 <form method="post" asp-page-handler="CreateUser">
                     <div class="col-6">
                         <label for="username" class="form-label">Username</label>
-                        <div class="input-group has-validation">
+                        <div class="input-group ">
                             <input asp-for="CreateUser.Username" type="text" class="form-control" id="username" placeholder="Username" value="" required>
-                            <div class="invalid-feedback">
-                                Username is required.
-                            </div>
                         </div>
                     </div>
 
                     <div class="col-6">
                         <label for="password" class="form-label">New Password</label>
-                        <div class="input-group has-validation">
+                        <div class="input-group ">
                             <input asp-for="CreateUser.Password" type="password" class="form-control" id="password" placeholder="***" value="">
-                            <div class="invalid-feedback">
-                                Password is required.
-                            </div>
                         </div>
                     </div>
 
@@ -148,9 +123,6 @@
                             <option value="@LoginRoles.MANAGER">@LoginRoles.MANAGER</option>
                             <option value="@LoginRoles.HR_ADMIN">@LoginRoles.HR_ADMIN</option>
                         </select>
-                        <div class="invalid-feedback">
-                            Please select a valid role.
-                        </div>
                     </div>
 
                     <br />
@@ -176,7 +148,7 @@
 
                         <div class="col-4">
                             <label for="username" class="form-label">Username</label>
-                            <div class="input-group has-validation">
+                            <div class="input-group ">
                                 <input asp-for="UpdateUser.Username" type="text" class="form-control" id="username" placeholder="Username" value="@details.Username" required readonly>
                                 <div class="invalid-feedback">
                                     Username is required.
@@ -186,7 +158,7 @@
 
                         <div class="col-4">
                             <label for="password" class="form-label">New Password</label>
-                            <div class="input-group has-validation">
+                            <div class="input-group ">
                                 <input asp-for="UpdateUser.Password" type="password" class="form-control" id="password" placeholder="" value="">
                                 <div class="invalid-feedback">
                                     Password is required.
@@ -213,9 +185,6 @@
                                     }
                                 }
                             </select>
-                            <div class="invalid-feedback">
-                                Please select a valid role.
-                            </div>
                         </div>
 
                         <br />
@@ -235,7 +204,6 @@
                                 <button class="btn btn-danger" type="submit">Delete User</button>
                             </div>
                             <input asp-for="Username" type="text" value="@details.Username" style="display:none;" readonly />
-                            @* <input asp-for="DeleteUser.EmployeeId" type="text" value="@ViewContext.RouteData.Values["id"]" style="display:none;" readonly /> *@
                         </form>
                 }
 
@@ -249,21 +217,15 @@
                 <form method="post" asp-page-handler="UpdateUser">
                     <div class="col-6">
                         <label for="username" class="form-label">Username</label>
-                        <div class="input-group has-validation">
+                        <div class="input-group ">
                             <input asp-for="UpdateUser.Username" type="text" class="form-control" id="username" placeholder="Username" value="@details.Username" required readonly>
-                            <div class="invalid-feedback">
-                                Username is required.
-                            </div>
                         </div>
                     </div>
 
                     <div class="col-6">
                         <label for="password" class="form-label">New Password</label>
-                        <div class="input-group has-validation">
+                        <div class="input-group ">
                             <input  asp-for="UpdateUser.Password" type="password" class="form-control" id="password" placeholder="" value="" >
-                            <div class="invalid-feedback">
-                                Password is required.
-                            </div>
                         </div>
                     </div>
                     
@@ -280,7 +242,7 @@
             {
                 <div class="col-6">
                     <label for="username" class="form-label">Username</label>
-                    <div class="input-group has-validation">
+                    <div class="input-group ">
                         <input type="text" class="form-control" id="username" placeholder="Username" value="@(details.Username ?? "N/A")" required readonly>
                     </div>
                 </div>
