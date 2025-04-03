@@ -2,7 +2,7 @@
 
 namespace HCM.Core.Models.Employee
 {
-    public class EmployeeBasicInfo
+    public class EmployeeInfoDto
     {
         public int Id { get; set; }
 

@@ -12,7 +12,7 @@ namespace HCM.Web.Pages
         private readonly IUsersService _usersService;
 
         [BindProperty]
-        public LoginUserModel LoginUserModel { get; set; }
+        public LoginUserDto LoginUserModel { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, IUsersService usersService)
         {

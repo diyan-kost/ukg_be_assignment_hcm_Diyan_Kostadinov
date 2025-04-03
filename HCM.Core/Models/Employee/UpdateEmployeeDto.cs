@@ -1,6 +1,6 @@
 ﻿namespace HCM.Core.Models.Employee
 {
-    public class UpdateEmployeeModel
+    public class UpdateEmployeeDto
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

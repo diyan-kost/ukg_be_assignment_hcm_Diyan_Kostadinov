@@ -1,6 +1,6 @@
 ﻿namespace HCM.Core.Models.Role
 {
-    public class RoleInfo
+    public class RoleIdDto
     {
         public int Id { get; set; }
 

@@ -6,7 +6,7 @@ namespace HCM.Core.Mappers
 {
     public static class UserMapper
     {
-        public static User ToUser(this CreateUser createUser, int roleId)
+        public static User ToUser(this CreateUserDto createUser, int roleId)
         {
             var user = new User()
             {

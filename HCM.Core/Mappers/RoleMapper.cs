@@ -5,9 +5,9 @@ namespace HCM.Core.Mappers
 {
     public static class RoleMapper
     {
-        public static IEnumerable<RoleInfo> ToRoleInfos(this IEnumerable<Role> roles)
+        public static IEnumerable<RoleIdDto> ToRoleInfos(this IEnumerable<Role> roles)
         {
-            return roles.Select(r => new RoleInfo { Id = r.Id, Name = r.Name, });
+            return roles.Select(r => new RoleIdDto { Id = r.Id, Name = r.Name, });
         }
     }
 }

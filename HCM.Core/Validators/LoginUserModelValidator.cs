@@ -3,7 +3,7 @@ using HCM.Core.Models.User;
 
 namespace HCM.Core.Validators
 {
-    public class LoginUserModelValidator : AbstractValidator<LoginUserModel>
+    public class LoginUserModelValidator : AbstractValidator<LoginUserDto>
     {
         public LoginUserModelValidator()
         {

@@ -13,7 +13,7 @@ namespace HCM.Core.Services.Implementations
             _rolesRepository = rolesRepository;
         }
 
-        public async Task<IEnumerable<RoleInfo>> GetRolesAsync()
+        public async Task<IEnumerable<RoleIdDto>> GetRolesAsync()
         {
             var roles = await _rolesRepository.GetAllAsync();
 

@@ -19,7 +19,7 @@ namespace HCM.Core.Services.Implementations
             _salariesRepository = salariesRepository;
         }
 
-        public async Task<EmployeeDetails> GetEmployeeDetailsByIdAsync(int id)
+        public async Task<EmployeeDetailsDto> GetEmployeeDetailsByIdAsync(int id)
         {
             var employee = await _employeesRepository.GetByIdAsync(id);
 
@@ -35,7 +35,7 @@ namespace HCM.Core.Services.Implementations
             return employeeDetails;
         }
 
-        public async Task<IEnumerable<EmployeeBasicInfo>> GetEmployeesByManagerIdAsync(int managerId)
+        public async Task<IEnumerable<EmployeeInfoDto>> GetEmployeesByManagerIdAsync(int managerId)
         {
             var employees = await _employeesRepository.GetByManagerIdAsync(managerId);
 
@@ -44,7 +44,7 @@ namespace HCM.Core.Services.Implementations
             return employeeBasicInfoList;
         }
 
-        public async Task<IEnumerable<EmployeeBasicInfo>> GetAllEmployeesAsync()
+        public async Task<IEnumerable<EmployeeInfoDto>> GetAllEmployeesAsync()
         {
             var employees = await _employeesRepository.GetAllAsync();
 
@@ -53,7 +53,7 @@ namespace HCM.Core.Services.Implementations
             return employeeBasicInfoList;
         }
 
-        public async Task UpdateEmployeeAsync(UpdateEmployeeModel model)
+        public async Task UpdateEmployeeAsync(UpdateEmployeeDto model)
         {
             var validator = new UpdateEmployeeValidator();
 
@@ -97,7 +97,7 @@ namespace HCM.Core.Services.Implementations
             await _employeesRepository.SaveTrackingChangesAsync();
         }
 
-        public async Task AddNewEmployeeAsync(AddNewEmployeeModel model)
+        public async Task AddNewEmployeeAsync(AddNewEmployeeDto model)
         {
             var validator = new AddNewEmployeeValidator();
             await validator.ValidateAndThrowAsync(model);

@@ -1,6 +1,6 @@
 ﻿namespace HCM.Core.Models.User
 {
-    public class UpdateUser
+    public class UpdateUserDto
     {
         public int Id { get; set; }
 

@@ -4,6 +4,6 @@ namespace HCM.Core.Services
 {
     public interface IRolesService
     {
-        Task<IEnumerable<RoleInfo>> GetRolesAsync();
+        Task<IEnumerable<RoleIdDto>> GetRolesAsync();
     }
 }

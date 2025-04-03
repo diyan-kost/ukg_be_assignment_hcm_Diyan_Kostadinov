@@ -17,7 +17,7 @@ namespace HCM.Web.Pages
             _employeesService = employeesService;
         }
 
-        public List<EmployeeBasicInfo> Employees { get; set; }
+        public List<EmployeeInfoDto> Employees { get; set; }
 
         public async Task OnGet()
         {

@@ -3,7 +3,7 @@ using HCM.Core.Models.Employee;
 
 namespace HCM.Core.Validators
 {
-    public class AddNewEmployeeValidator : AbstractValidator<AddNewEmployeeModel>
+    public class AddNewEmployeeValidator : AbstractValidator<AddNewEmployeeDto>
     {
         public AddNewEmployeeValidator()
         {

@@ -5,10 +5,10 @@ namespace HCM.Core.Mappers
 {
     public static class SalariesMapper
     {
-        public static List<SalaryDetails> ToSalaryDetails(this IEnumerable<Salary> salaries)
+        public static List<SalaryDto> ToSalaryDetails(this IEnumerable<Salary> salaries)
         {
             var salaryDetails = salaries
-                .Select(s => new SalaryDetails { Amount = s.Amount, EffectiveDate = s.EffectiveDate, Note = s.Note })
+                .Select(s => new SalaryDto { Amount = s.Amount, EffectiveDate = s.EffectiveDate, Note = s.Note })
                 .ToList();
 
             return salaryDetails;

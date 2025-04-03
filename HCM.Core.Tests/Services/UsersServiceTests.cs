@@ -35,7 +35,7 @@ namespace HCM.Core.Tests.Services
         public async Task LoginAsync_WhenDataIsValid_ShouldLogReturnEmployeeId()
         {
             // Arrange
-            var loginModel = new LoginUserModel()
+            var loginModel = new LoginUserDto()
             {
                 Username = "test",
                 Password = "Test1"
@@ -69,7 +69,7 @@ namespace HCM.Core.Tests.Services
         public async Task LoginAsync_WhenUserNotFound_ShouldThrowException()
         {
             // Arrange
-            var loginModel = new LoginUserModel()
+            var loginModel = new LoginUserDto()
             {
                 Username = "test",
                 Password = "Test1"
@@ -87,7 +87,7 @@ namespace HCM.Core.Tests.Services
         public async Task LoginAsync_WhenUsernameIsInvalid_ShouldThrowException(string username)
         {
             // Arrange
-            var loginModel = new LoginUserModel()
+            var loginModel = new LoginUserDto()
             {
                 Username = username,
                 Password = "test"
@@ -104,7 +104,7 @@ namespace HCM.Core.Tests.Services
         public async Task LoginAsync_WhenPasswordIsNotSet_ShouldThrowException()
         {
             // Arrange
-            var loginModel = new LoginUserModel()
+            var loginModel = new LoginUserDto()
             {
                 Username = "test",
                 Password = ""
@@ -121,7 +121,7 @@ namespace HCM.Core.Tests.Services
         public async Task LoginAsync_PasswordIsIncorrect_ShouldThrowException()
         {
             // Arrange
-            var loginModel = new LoginUserModel()
+            var loginModel = new LoginUserDto()
             {
                 Username = "test",
                 Password = "Test1"
@@ -167,7 +167,7 @@ namespace HCM.Core.Tests.Services
         public async Task CreateUserAsync_WhenDataIsCorrect_ShouldCallRepository()
         {
             // Arrange
-            var input = new CreateUser()
+            var input = new CreateUserDto()
             {
                 Username = "test",
                 Password = "Test1",
@@ -190,7 +190,7 @@ namespace HCM.Core.Tests.Services
         public async Task CreateUserAsync_WhenUsernameIsInvalid_ShouldThrowException(string username)
         {
             // Arrange
-            var input = new CreateUser()
+            var input = new CreateUserDto()
             {
                 Username = username,
                 Password = "test",
@@ -208,7 +208,7 @@ namespace HCM.Core.Tests.Services
         public async Task CreateUserAsync_WhenUsernameIsTaken_ShouldThrowException()
         {
             // Arrange
-            var input = new CreateUser()
+            var input = new CreateUserDto()
             {
                 Username = "test",
                 Password = "Test123",
@@ -232,7 +232,7 @@ namespace HCM.Core.Tests.Services
         public async Task CreateUserAsync_WhenPasswordIsInvalid_ShouldThrowException(string password)
         {
             // Arrange
-            var input = new CreateUser()
+            var input = new CreateUserDto()
             {
                 Username = "test",
                 Password = password,
@@ -250,7 +250,7 @@ namespace HCM.Core.Tests.Services
         public async Task CreateUserAsync_WhenRoleNotSet_ShouldThrowException()
         {
             // Arrange
-            var input = new CreateUser()
+            var input = new CreateUserDto()
             {
                 Username = "test",
                 Password = "Test1",
@@ -268,7 +268,7 @@ namespace HCM.Core.Tests.Services
         public async Task CreateUserAsync_WhenRoleIsNotFound_ShouldThrowException()
         {
             // Arrange
-            var input = new CreateUser()
+            var input = new CreateUserDto()
             {
                 Username = "test",
                 Password = "Test1",
@@ -286,7 +286,7 @@ namespace HCM.Core.Tests.Services
         public async Task UpdateUserAsync_WhenPasswordIsNotValid_ShouldThrowException()
         {
             // Arrange
-            var input = new UpdateUser()
+            var input = new UpdateUserDto()
             {
                 Username = "test",
                 Password = "te",
@@ -304,7 +304,7 @@ namespace HCM.Core.Tests.Services
         public async Task UpdateUserAsync_WhenUserNotFound_ShouldThrowException()
         {
             // Arrange
-            var input = new UpdateUser()
+            var input = new UpdateUserDto()
             {
                 Username = "test",
                 Password = "Test123",
@@ -322,7 +322,7 @@ namespace HCM.Core.Tests.Services
         public async Task UpdateUserAsync_WhenRoleIsSetAndNotFound_ShouldThrowException()
         {
             // Arrange
-            var input = new UpdateUser()
+            var input = new UpdateUserDto()
             {
                 Username = "test",
                 Password = "Test123",
@@ -345,7 +345,7 @@ namespace HCM.Core.Tests.Services
         public async Task UpdateUserAsync_WhenRoleIsSet_ShouldCallRepository()
         {
             // Arrange
-            var input = new UpdateUser()
+            var input = new UpdateUserDto()
             {
                 Username = "test",
                 Role = 2,
@@ -372,7 +372,7 @@ namespace HCM.Core.Tests.Services
         public async Task UpdateUserAsync_WhenPasswordIsSet_ShouldCallRepository()
         {
             // Arrange
-            var input = new UpdateUser()
+            var input = new UpdateUserDto()
             {
                 Username = "test",
                 Password = "Test123",

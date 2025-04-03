@@ -443,9 +443,9 @@ namespace HCM.Core.Tests.Services
             _mockEmployeesRepository.Verify(r => r.DeleteAsync(It.IsAny<Employee>()), Times.Once);
         }
 
-        private AddNewEmployeeModel CreateAddNewEmployeeModel(int? managerId = null)
+        private AddNewEmployeeDto CreateAddNewEmployeeModel(int? managerId = null)
         {
-            var model = new AddNewEmployeeModel()
+            var model = new AddNewEmployeeDto()
             {
                 FirstName = "John",
                 MiddleName = "Johnson",
@@ -466,9 +466,9 @@ namespace HCM.Core.Tests.Services
             return model;
         }
 
-        private UpdateEmployeeModel CreateUpdateModel(int id, int? managerId = null)
+        private UpdateEmployeeDto CreateUpdateModel(int id, int? managerId = null)
         {
-            var model = new UpdateEmployeeModel()
+            var model = new UpdateEmployeeDto()
             {
                 Id = id,
                 FirstName = "John",

@@ -3,7 +3,7 @@ using HCM.Core.Models.Salary;
 
 namespace HCM.Core.Validators
 {
-    public class SalaryValidator : AbstractValidator<AddSalaryModel>
+    public class SalaryValidator : AbstractValidator<AddSalaryDto>
     {
         public SalaryValidator()
         {

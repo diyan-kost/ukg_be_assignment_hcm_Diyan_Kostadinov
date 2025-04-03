@@ -18,9 +18,9 @@ namespace HCM.Web.Pages
         }
 
         [BindProperty]
-        public AddNewEmployeeModel AddEmployee { get; set; }
+        public AddNewEmployeeDto AddEmployee { get; set; }
 
-        public List<EmployeeBasicInfo> EmployeeList { get; set; }
+        public List<EmployeeInfoDto> EmployeeList { get; set; }
 
         public async Task OnGet()
         {

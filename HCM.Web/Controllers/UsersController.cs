@@ -17,7 +17,7 @@ namespace HCM.Web.Controllers
         [HttpPost("Login")]
         [AllowAnonymous]
         //[HttpPost]
-        public async Task<IActionResult> Login(LoginUserModel loginUserModel)
+        public async Task<IActionResult> Login(LoginUserDto loginUserModel)
         {
             //await _usersService.LoginAsync(loginUserModel);
 

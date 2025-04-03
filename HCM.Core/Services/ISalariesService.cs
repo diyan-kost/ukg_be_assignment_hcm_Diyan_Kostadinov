@@ -4,6 +4,6 @@ namespace HCM.Core.Services
 {
     public interface ISalariesService
     {
-        Task AddNewSalaryAsync(AddSalaryModel model);
+        Task AddNewSalaryAsync(AddSalaryDto model);
     }
 }

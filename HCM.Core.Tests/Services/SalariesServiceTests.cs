@@ -25,7 +25,7 @@ namespace HCM.Core.Tests.Services
         public async Task AddNewSalaryAsync_WhenDataIsValid_ShouldCallRepository()
         {
             // Arrange
-            var newSalary = new AddSalaryModel() { Amount = 1000, EffectiveDate = DateTime.Today.AddDays(1), Note="Test", EmployeeId = 1 };
+            var newSalary = new AddSalaryDto() { Amount = 1000, EffectiveDate = DateTime.Today.AddDays(1), Note="Test", EmployeeId = 1 };
 
             // Act
             await _salariesService.AddNewSalaryAsync(newSalary);
@@ -38,7 +38,7 @@ namespace HCM.Core.Tests.Services
         public async Task AddNewSalaryAsync_WhenEffectiveDateIsInvalid_ShouldThrowException()
         {
             // Arrange
-            var newSalary = new AddSalaryModel() { Amount = 1000, EffectiveDate = DateTime.Today.AddDays(-7), Note = "Test", EmployeeId = 1 };
+            var newSalary = new AddSalaryDto() { Amount = 1000, EffectiveDate = DateTime.Today.AddDays(-7), Note = "Test", EmployeeId = 1 };
 
             // Act
             var action = async () => await _salariesService.AddNewSalaryAsync(newSalary);
@@ -51,7 +51,7 @@ namespace HCM.Core.Tests.Services
         public async Task AddNewSalaryAsync_WhenAmountIsInvalid_ShouldThrowException()
         {
             // Arrange
-            var newSalary = new AddSalaryModel() { Amount = 0, EffectiveDate = DateTime.Today.AddDays(1), Note = "Test", EmployeeId = 1 };
+            var newSalary = new AddSalaryDto() { Amount = 0, EffectiveDate = DateTime.Today.AddDays(1), Note = "Test", EmployeeId = 1 };
 
             // Act
             var action = async () => await _salariesService.AddNewSalaryAsync(newSalary);

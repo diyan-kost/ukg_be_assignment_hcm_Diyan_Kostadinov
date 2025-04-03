@@ -4,7 +4,7 @@ using HCM.Core.Models.User;
 
 namespace HCM.Core.Validators
 {
-    public class CreateUserValidator : AbstractValidator<CreateUser>
+    public class CreateUserValidator : AbstractValidator<CreateUserDto>
     {
         public CreateUserValidator()
         {

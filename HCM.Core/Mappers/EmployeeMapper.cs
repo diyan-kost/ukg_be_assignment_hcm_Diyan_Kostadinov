@@ -7,7 +7,7 @@ namespace HCM.Core.Mappers
 {
     public static class EmployeeMapper
     {
-        public static EmployeeDetails ToEmployeeDetails(this Employee employee, List<SalaryDetails>? salaryDetails = null)
+        public static EmployeeDetailsDto ToEmployeeDetails(this Employee employee, List<SalaryDto>? salaryDetails = null)
         {
             var managerName = "None";
             if (employee.Manager != null)
@@ -24,7 +24,7 @@ namespace HCM.Core.Mappers
                 managerName = fullName.ToString();
             }
 
-            var employeeDetails = new EmployeeDetails()
+            var employeeDetails = new EmployeeDetailsDto()
             {
                 FirstName = employee.FirstName,
                 MiddleName = employee.LastName,
@@ -38,15 +38,15 @@ namespace HCM.Core.Mappers
                 HiredAt = employee.HiredAt,
                 ManagerName = managerName,
                 ManagerId = employee.ManagerId,
-                Salaries = salaryDetails ?? new List<SalaryDetails>()
+                Salaries = salaryDetails ?? new List<SalaryDto>()
             };
 
             return employeeDetails;
         }
 
-        public static IEnumerable<EmployeeBasicInfo> ToEmployeeBasicInfo(this IEnumerable<Employee> employees)
+        public static IEnumerable<EmployeeInfoDto> ToEmployeeBasicInfo(this IEnumerable<Employee> employees)
         {
-            var employeeBasicInfoList = employees.Select(e => new EmployeeBasicInfo()
+            var employeeBasicInfoList = employees.Select(e => new EmployeeInfoDto()
             {
                 Id = e.Id,
                 FirstName = e.FirstName,
@@ -63,7 +63,7 @@ namespace HCM.Core.Mappers
             return employeeBasicInfoList;
         }
 
-        public static Employee ToEmployee(this AddNewEmployeeModel model)
+        public static Employee ToEmployee(this AddNewEmployeeDto model)
         {
             var employee = new Employee()
             {

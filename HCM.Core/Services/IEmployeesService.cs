@@ -4,15 +4,15 @@ namespace HCM.Core.Services
 {
     public interface IEmployeesService
     {
-        Task<EmployeeDetails> GetEmployeeDetailsByIdAsync(int id);
+        Task<EmployeeDetailsDto> GetEmployeeDetailsByIdAsync(int id);
 
-        Task<IEnumerable<EmployeeBasicInfo>> GetEmployeesByManagerIdAsync(int managerId);
+        Task<IEnumerable<EmployeeInfoDto>> GetEmployeesByManagerIdAsync(int managerId);
 
-        Task<IEnumerable<EmployeeBasicInfo>> GetAllEmployeesAsync();
+        Task<IEnumerable<EmployeeInfoDto>> GetAllEmployeesAsync();
 
-        Task UpdateEmployeeAsync(UpdateEmployeeModel model);
+        Task UpdateEmployeeAsync(UpdateEmployeeDto model);
 
-        Task AddNewEmployeeAsync(AddNewEmployeeModel model);
+        Task AddNewEmployeeAsync(AddNewEmployeeDto model);
 
         Task DeleteEmployeeAsync(int id);
     }

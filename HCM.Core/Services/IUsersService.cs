@@ -5,15 +5,15 @@ namespace HCM.Core.Services
 {
     public interface IUsersService
     {
-        Task<int> LoginAsync(LoginUserModel loginUserModel);
+        Task<int> LoginAsync(LoginUserDto loginUserModel);
 
         Task LogoutAsync();
 
         Task<string?> GetUsernameByEmployeeIdAsync(int employeeId);
 
-        Task CreateUserAsync(CreateUser model);
+        Task CreateUserAsync(CreateUserDto model);
 
-        Task UpdateUserAsync(UpdateUser model);
+        Task UpdateUserAsync(UpdateUserDto model);
 
         Task DeleteUserAsync(string username);
 

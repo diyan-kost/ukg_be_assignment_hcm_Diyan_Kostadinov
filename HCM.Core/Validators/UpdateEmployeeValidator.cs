@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace HCM.Core.Validators
 {
-    public class UpdateEmployeeValidator : AbstractValidator<UpdateEmployeeModel>
+    public class UpdateEmployeeValidator : AbstractValidator<UpdateEmployeeDto>
     {
         public UpdateEmployeeValidator()
         {

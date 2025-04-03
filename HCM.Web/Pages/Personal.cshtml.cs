@@ -30,27 +30,27 @@ namespace HCM.Web.Pages
         }
 
         [BindProperty]
-        public EmployeeDetails? EmployeeDetails { get; set; }
+        public EmployeeDetailsDto? EmployeeDetails { get; set; }
 
         [BindProperty]
-        public UpdateEmployeeModel UpdateEmployeeModel { get; set; }
+        public UpdateEmployeeDto UpdateEmployeeModel { get; set; }
 
         [BindProperty]
-        public AddSalaryModel AddSalaryModel { get; set; }
+        public AddSalaryDto AddSalaryModel { get; set; }
 
         [BindProperty]
-        public UpdateUser UpdateUser { get; set; }
+        public UpdateUserDto UpdateUser { get; set; }
 
         //[BindProperty]
         //public DeleteUser DeleteUser { get; set; }
 
         [BindProperty]
-        public CreateUser CreateUser { get; set; }
+        public CreateUserDto CreateUser { get; set; }
 
         [BindProperty]
         public string Username { get; set; }
 
-        public IEnumerable<RoleInfo> Roles { get; set; }
+        public IEnumerable<RoleIdDto> Roles { get; set; }
 
         public async Task OnGet(int id)
         {

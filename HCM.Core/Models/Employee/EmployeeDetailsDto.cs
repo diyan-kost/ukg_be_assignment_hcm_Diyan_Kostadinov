@@ -2,7 +2,7 @@
 
 namespace HCM.Core.Models.Employee
 {
-    public class EmployeeDetails
+    public class EmployeeDetailsDto
     {
         public string FirstName { get; set; }
 
@@ -32,6 +32,6 @@ namespace HCM.Core.Models.Employee
 
         public string? Role { get; set; }
 
-        public List<SalaryDetails> Salaries { get; set; }
+        public List<SalaryDto> Salaries { get; set; }
     }
 }
