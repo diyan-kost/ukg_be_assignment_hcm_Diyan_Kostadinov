@@ -124,7 +124,7 @@ namespace HCM.Core.Services.Implementations
 
             await _employeesRepository.AddNewEmployeeAsync(newEmployee);
 
-            var salary = new Salary() { Amount = model.StartingSalary, EffectiveDate = model.SalaryEffectiveDate, EmployeeId = newEmployee.Id };
+            var salary = new Salary() { Amount = model.StartingSalary, EffectiveDate = model.StartingDate, EmployeeId = newEmployee.Id };
 
             await _salariesRepository.AddNewSalaryAsync(salary);
 

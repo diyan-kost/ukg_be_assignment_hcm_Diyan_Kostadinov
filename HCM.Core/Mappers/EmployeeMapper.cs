@@ -27,7 +27,7 @@ namespace HCM.Core.Mappers
             var employeeDetails = new EmployeeDetailsDto()
             {
                 FirstName = employee.FirstName,
-                MiddleName = employee.LastName,
+                MiddleName = employee.MiddleName,
                 LastName = employee.LastName,
                 NationalIdNumber = employee.NationalIdNumber,
                 PhoneNumber = employee.PhoneNumber,
@@ -72,7 +72,7 @@ namespace HCM.Core.Mappers
                 LastName = model.LastName,
                 Email = model.Email,
                 PhoneNumber = model.PhoneNumber,
-                HiredAt = model.HiredAt,
+                HiredAt = model.StartingDate,
                 CurrentAddress = model.Address,
                 DateOfBirth = model.DateOfBirth,
                 IsEuCitizen = model.IsEuCitizen,

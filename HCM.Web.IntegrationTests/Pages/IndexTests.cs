@@ -28,8 +28,8 @@ namespace HCM.Web.IntegrationTests.Pages
 
             var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
-                { "LoginUserModel.Username", TestDbHelper.GetValidEmployeeUsername(db) },
-                { "LoginUserModel.Password", "1" },
+                { "LoginUserModel.Username", TestDbHelper.GetValidUsername(db) },
+                { "LoginUserModel.Password", "1" }, 
             });
 
             // Act

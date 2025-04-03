@@ -1,4 +1,5 @@
 ﻿using HCM.Infrastructure;
+using HCM.Web.Extensions;
 using HCM.Web.IntegrationTests.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +33,8 @@ namespace HCM.Web.IntegrationTests
 
                     context.Database.EnsureCreated();
 
-                    TestDbHelper.InitializeDbForTests(context);
+                    //TestDbHelper.InitializeDbForTests(context);
+                    TestData.InitializeDbWithTestData(context);
                 }
 
                 services.AddAuthorization();

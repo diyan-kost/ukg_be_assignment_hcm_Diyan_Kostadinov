@@ -22,11 +22,9 @@
 
         public bool IsEuCitizen { get; set; }
 
-        public DateTime HiredAt { get; set; }
-
         public decimal StartingSalary { get; set; }
 
-        public DateTime SalaryEffectiveDate { get; set; }
+        public DateTime StartingDate { get; set; }
 
         public int? ManagerId { get; set; }
     }

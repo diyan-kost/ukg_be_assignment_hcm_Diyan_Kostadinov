@@ -461,12 +461,11 @@ namespace HCM.Core.Tests.Services
                 Address = "Lorem Ipsum",
                 NationalIdNumber = $"2537815740",
                 DateOfBirth = DateTime.Today.AddYears(-30),
-                HiredAt = DateTime.Today.AddDays(1),
                 ManagerId = managerId,
                 IsEuCitizen = false,
                 Gender = "Male",
                 StartingSalary = 1000,
-                SalaryEffectiveDate = DateTime.Today.AddDays(1)
+                StartingDate = DateTime.Today.AddDays(1)
             };
 
             return model;
