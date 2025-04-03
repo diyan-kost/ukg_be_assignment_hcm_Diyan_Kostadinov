@@ -21,6 +21,9 @@ namespace HCM.Core.Tests.Services
             _mockSalariesRepository = new Mock<ISalariesRepository>();
             _mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
 
+            var mockSession = new Mock<ISession>();
+            _mockHttpContextAccessor.Setup(c => c.HttpContext.Session).Returns(mockSession.Object);
+
             _salariesService = new SalariesService(_mockSalariesRepository.Object, _mockHttpContextAccessor.Object);
         }
 
