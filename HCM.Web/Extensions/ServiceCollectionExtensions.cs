@@ -3,7 +3,7 @@ using HCM.Core.Services;
 using HCM.Infrastructure.Repositories.Implementations;
 using HCM.Infrastructure.Repositories;
 
-namespace HCM.Web
+namespace HCM.Web.Extensions
 {
     public static class ServiceCollectionExtensions
     {
